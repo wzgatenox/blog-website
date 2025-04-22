@@ -30,7 +30,7 @@ export function Search() {
       return
     }
 
-    const searchResults = Object.entries(blogPosts).filter(([_, post]) => {
+    const searchResults = Object.entries(blogPosts).filter(([, post]) => {
       const searchableText = `${post.title} ${post.subtitle || ""} ${post.content}`
       return searchableText.toLowerCase().includes(query.toLowerCase())
     })

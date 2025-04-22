@@ -53,7 +53,7 @@ export function StarryBackground() {
 
   return (
     <>
-      <div className="fixed inset-0 z-[-1] bg-gradient-to-b from-navy-600 via-navy-700 via-navy-800 via-navy-850 via-navy-900 to-navy-950" />
+      <div className="fixed inset-0 z-[-1] !bg-[#1E3A5F] bg-gradient-to-b from-[#1E3A5F] via-[#162D4C] via-[#102339] via-[#0C1B2E] to-[#091526]" />
       <div className="fixed inset-0 z-[-1]">
         {stars.map((star) => (
           <div

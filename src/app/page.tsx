@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button"
 import { blogPosts } from "@/data/blog-posts"
 
 export default function Home() {
-  const latestPost = Object.entries(blogPosts)[0]
-
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
