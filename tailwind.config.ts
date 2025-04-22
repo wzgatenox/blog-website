@@ -25,8 +25,12 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         navy: {
-          900: '#0A192F',
-          950: '#050B16',
+          600: '#1E3A5F',
+          700: '#162D4C',
+          800: '#102339',
+          850: '#0C1B2E',
+          900: '#091526',
+          950: '#060F1D',
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
