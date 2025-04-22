@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation"
 import { blogPosts } from "@/data/blog-posts"
+import React from "react"
+import { AnimatedHeading } from "@/components/AnimatedHeading"
 
 interface PageProps {
   params: Promise<{
@@ -44,14 +46,8 @@ export default async function BlogPost({ params }: PageProps) {
         <div className="mt-8 space-y-6">
           {post.content.split('\n').map((line, index) => {
             if (line.startsWith('##')) {
-              return (
-                <h2
-                  key={index}
-                  className="text-3xl font-semibold mt-10 mb-4 gradient-text leading-tight"
-                >
-                  {line.substring(2).trim()}
-                </h2>
-              )
+              const headingText = line.substring(2).trim()
+              return <AnimatedHeading key={index} text={headingText} />
             } else if (line.trim() !== '') {
               return (
                 <p key={index} className="leading-7">
