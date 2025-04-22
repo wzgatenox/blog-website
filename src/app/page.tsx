@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { blogPosts } from "@/data/blog-posts"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -25,25 +26,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Posts */}
+      {/* Featured Posts - Updated Layout */}
       <section className="py-16">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Latest Posts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(blogPosts).map(([slug, post]) => (
-              <article key={slug} className="group">
-                <Link href={`/blog/${slug}`} className="block">
-                  <div className="relative overflow-hidden rounded-lg shadow-lg">
-                    <div className="aspect-[16/9] bg-gradient-to-br from-gray-200 to-gray-400 dark:from-gray-700 dark:to-gray-800" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 p-6 z-10">
-                      <h3 className="text-xl font-semibold text-white group-hover:text-gray-100 transition-colors">
-                        {post.title}
-                      </h3>
-                      <p className="text-gray-200 text-sm mt-2">
-                        {post.subtitle || "Exploring the complex relationship..."}
-                      </p>
-                    </div>
+              <article key={slug} className="group flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
+                <Link href={`/blog/${slug}`} className="flex flex-col h-full">
+                  {/* Image Section */}
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    {post.imageUrl ? (
+                      <Image
+                        src={post.imageUrl}
+                        alt={post.title}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-400 dark:from-gray-700 dark:to-gray-800" />
+                    )}
+                  </div>
+
+                  {/* Content Section Below Image */}
+                  <div className="flex flex-col flex-grow p-4 md:p-6">
+                    <time dateTime={post.date} className="block text-xs text-muted-foreground mb-2">
+                      {new Date(post.date).toLocaleDateString('en-GB')} 
+                    </time>
+                    <h3 className="text-lg md:text-xl font-semibold leading-snug group-hover:text-primary transition-colors flex-grow">
+                      {post.title}
+                    </h3>
                   </div>
                 </Link>
               </article>
