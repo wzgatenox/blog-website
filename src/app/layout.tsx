@@ -18,16 +18,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${inter.className} bg-transparent`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem={true}
           disableTransitionOnChange
         >
+          <StarryBackground />
           <div className="relative min-h-screen">
-            <StarryBackground />
             <Nav />
             <main className="container mx-auto px-4 py-8">
               {children}
