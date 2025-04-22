@@ -71,6 +71,9 @@ export function StarryBackground() {
     return null
   }
 
+  // Simple 5-point star polygon clip-path
+  const starClipPath = "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)";
+
   return (
     <>
       {/* Background Gradient */}
@@ -82,11 +85,11 @@ export function StarryBackground() {
       />
 
       {/* Stars */}
-      <div className="fixed inset-0 z-[-1] overflow-hidden"> {/* Added overflow-hidden */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden">
         {stars.map((star) => (
           <div
             key={star.id}
-            className="absolute rounded-full animate-twinkle"
+            className="absolute animate-twinkle"
             style={{
               left: `${star.x}%`,
               top: `${star.y}%`,
@@ -94,7 +97,8 @@ export function StarryBackground() {
               height: `${star.size}px`,
               opacity: star.opacity,
               backgroundColor: star.color,
-              animation: `twinkle ${star.blinkDuration}s ease-in-out infinite`
+              animation: `twinkle ${star.blinkDuration}s ease-in-out infinite`,
+              clipPath: starClipPath
             }}
           />
         ))}
