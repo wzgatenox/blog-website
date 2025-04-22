@@ -18,7 +18,7 @@ export function LightModeBackgroundAccent() {
 
   return (
     <div 
-      className="fixed top-0 right-0 z-[-1] w-[50vw] h-[50vh] opacity-30 blur-3xl"
+      className="fixed inset-0 z-[-1] opacity-30 blur-3xl pointer-events-none"
       style={{
         background: `radial-gradient(circle at top right, 
           rgba(255, 209, 209, 0.5) 0%,   /* pastel-red */
@@ -27,7 +27,7 @@ export function LightModeBackgroundAccent() {
           rgba(209, 255, 209, 0.2) 45%,  /* pastel-green */
           rgba(209, 225, 255, 0.15) 60%, /* pastel-blue */
           rgba(225, 209, 255, 0.1) 75%,  /* pastel-purple */
-          transparent 90%
+          transparent 85% /* Fade out slightly sooner */
         )`
       }}
     />

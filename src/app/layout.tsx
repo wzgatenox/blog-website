@@ -27,9 +27,14 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange
         >
-          <StarryBackground />
-          <LightModeBackgroundAccent />
-          <div className="relative min-h-screen bg-transparent">
+          {/* Background Elements - Rendered First */}
+          <div className="fixed inset-0 z-0"> {/* Container for backgrounds at z-0 */}
+             <StarryBackground />
+             <LightModeBackgroundAccent />
+          </div>
+          
+          {/* Main Content Wrapper - Relative, z-10 */}
+          <div className="relative min-h-screen z-10 bg-transparent">
             <Nav />
             <main className="container mx-auto px-4 py-8">
               {children}
