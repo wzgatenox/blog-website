@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { blogPosts } from "@/data/blog-posts"
 import React from "react"
 import { AnimatedHeading } from "@/components/AnimatedHeading"
+import Image from "next/image"
 
 interface PageProps {
   params: Promise<{
@@ -42,6 +43,15 @@ export default async function BlogPost({ params }: PageProps) {
           <time dateTime={post.date}>{post.date}</time>
           <span>•</span>
           <span>{post.author}</span>
+        </div>
+        <div className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg">
+          <Image 
+            src="/purple-brain.jpeg" 
+            alt={`${post.title} image`} 
+            fill 
+            style={{ objectFit: "cover" }}
+            priority
+          />
         </div>
         <div className="mt-8 space-y-6">
           {post.content.split('\n').map((line, index) => {
