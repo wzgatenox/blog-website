@@ -15,8 +15,9 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-export default function BlogPost({ params }: BlogPostProps) {
-  const { slug } = params
+export default async function BlogPost({ params }: BlogPostProps) {
+  // In Next.js 15, we need to await the params
+  const { slug } = await params
   const post = blogPosts[slug]
 
   if (!post) {
@@ -25,11 +26,13 @@ export default function BlogPost({ params }: BlogPostProps) {
 
   return (
     <article className="prose prose-gray dark:prose-invert mx-auto max-w-4xl py-8">
-      <h1 className="text-4xl font-bold tracking-tight gradient-text">
+      <h1 className="text-6xl font-bold tracking-tight gradient-text mb-6 leading-tight">
         {post.title}
       </h1>
       {post.subtitle && (
-        <p className="text-xl text-muted-foreground mt-4">{post.subtitle}</p>
+        <p className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
+          {post.subtitle}
+        </p>
       )}
       <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">
         <time dateTime={post.date}>{post.date}</time>
