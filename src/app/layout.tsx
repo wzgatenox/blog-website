@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-transparent`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -27,7 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <StarryBackground />
-          <div className="min-h-screen bg-transparent">
+          <div className="relative min-h-screen">
             <Nav />
             <main className="container mx-auto px-4 py-8">
               {children}

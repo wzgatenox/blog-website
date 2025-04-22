@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation"
 import { blogPosts } from "@/data/blog-posts"
 
-interface BlogPostProps {
-  params: {
+interface PageProps {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export function generateStaticParams() {
@@ -15,8 +15,10 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-export default async function BlogPost({ params }: BlogPostProps) {
-  const { slug } = await params
+export default async function BlogPost({ params }: PageProps) {
+  // Wait for params to be available
+  const resolvedParams = await params
+  const slug = resolvedParams.slug as string
   const post = blogPosts[slug]
 
   if (!post) {
