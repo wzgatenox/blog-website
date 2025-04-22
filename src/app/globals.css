@@ -6,65 +6,81 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 100%; /* Light background */
+    --foreground: 240 10% 3.9%; /* Dark text for light bg */
 
+    /* Card */
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
  
+    /* Popover */
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
  
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary */
+    --primary: 240 5.9% 10%; /* Dark */
+    --primary-foreground: 0 0% 98%; /* Light */
  
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    /* Secondary */
+    --secondary: 240 4.8% 95.9%; /* Light Gray */
+    --secondary-foreground: 240 5.9% 10%; /* Dark */
  
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    /* Muted */
+    --muted: 240 4.8% 95.9%; /* Light Gray */
+    --muted-foreground: 240 3.8% 46.1%; /* Medium Gray */
  
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    /* Accent */
+    --accent: 240 4.8% 95.9%; /* Light Gray */
+    --accent-foreground: 240 5.9% 10%; /* Dark */
  
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%; /* Red */
+    --destructive-foreground: 0 0% 98%; /* Light */
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    /* Border */
+    --border: 240 5.9% 90%; /* Light Gray */
+    --input: 240 5.9% 90%; /* Light Gray */
+    --ring: 240 5.9% 10%; /* Dark */
  
     --radius: 0.5rem;
   }
  
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 240 10% 3.9%; /* Dark background */
+    --foreground: 0 0% 98%; /* Light text for dark bg */
 
+    /* Card */
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
  
+    /* Popover */
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
  
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    /* Primary */
+    --primary: 0 0% 98%; /* Light */
+    --primary-foreground: 240 5.9% 10%; /* Dark */
  
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary */
+    --secondary: 240 3.7% 15.9%; /* Dark Gray */
+    --secondary-foreground: 0 0% 98%; /* Light */
  
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    /* Muted */
+    --muted: 240 3.7% 15.9%; /* Dark Gray */
+    --muted-foreground: 240 5% 64.9%; /* Lighter Gray */
  
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent */
+    --accent: 240 3.7% 15.9%; /* Dark Gray */
+    --accent-foreground: 0 0% 98%; /* Light */
  
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    /* Destructive */
+    --destructive: 0 62.8% 30.6%; /* Darker Red */
+    --destructive-foreground: 0 0% 98%; /* Light */
  
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    /* Border */
+    --border: 240 3.7% 15.9%; /* Dark Gray */
+    --input: 240 3.7% 15.9%; /* Dark Gray */
+    --ring: 240 4.9% 83.9%; /* Light Gray */
   }
 }
  
@@ -73,7 +89,7 @@
     @apply border-[hsl(var(--border))];
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground; /* This should be sufficient */
   }
 }
 
@@ -136,17 +152,4 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

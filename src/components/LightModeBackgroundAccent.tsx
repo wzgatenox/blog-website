@@ -14,53 +14,7 @@ const UNICORN_SIZE = { width: 100, height: 100 }; // Approx size for collisions 
 const MIN_UNICORNS = 2;
 const MAX_UNICORNS = 3;
 
-// Komponent SVG dla łuku tęczy
-const RainbowArcSVG = ({ className }: { className?: string }) => {
-  const colors = [
-    '#FFD1D1', // pastel-red
-    '#FFE4C4', // pastel-orange
-    '#FFFACD', // pastel-yellow
-    '#D1FFD1', // pastel-green
-    '#D1E1FF', // pastel-blue
-    '#E1D1FF'  // pastel-purple
-  ];
-  const strokeWidth = 12; // Szerokość każdego pasa tęczy
-  const radiusIncrement = 10; // Odstęp między pasami
-  const startRadius = 150; // Promień wewnętrznego łuku
-  const centerX = 300; // Punkt centralny X (poza widokiem, np. prawy dolny róg)
-  const centerY = 300; // Punkt centralny Y
-
-  // Punkty startowe i końcowe dla łuku (ćwiartka koła)
-  // Start: ~środek prawej krawędzi, End: ~środek dolnej krawędzi
-  const startX = centerX;
-  const startY = centerY - startRadius;
-
-  return (
-    <svg 
-      className={className} 
-      viewBox="0 0 300 300" // Dostosuj viewBox do promieni
-      preserveAspectRatio="xMaxYMax slice" // Utrzymaj w prawym dolnym rogu
-      fill="none" 
-      strokeLinecap="round"
-    >
-      {colors.map((color, index) => {
-        const currentRadius = startRadius + index * radiusIncrement;
-        // Uproszczone punkty dla ćwiartki okręgu w prawym dolnym rogu
-        const M = `M ${centerX} ${centerY - currentRadius}`; // Move to top point
-        const A = `A ${currentRadius} ${currentRadius} 0 0 0 ${centerX - currentRadius} ${centerY}`; // Arc to left point
-
-        return (
-          <path
-            key={color}
-            d={`${M} ${A}`}
-            stroke={color}
-            strokeWidth={strokeWidth}
-          />
-        );
-      })}
-    </svg>
-  );
-};
+// RainbowArcSVG component removed
 
 export function LightModeBackgroundAccent() {
   const { theme } = useTheme();
@@ -161,14 +115,9 @@ export function LightModeBackgroundAccent() {
     return null;
   }
 
+  // Return only the unicorns, no extra background element
   return (
     <>
-      {/* Rainbow Arc SVG */}
-      <RainbowArcSVG 
-        className="fixed bottom-0 right-0 z-[-2] w-1/2 h-1/2 max-w-md max-h-md opacity-60 blur-sm pointer-events-none"
-      />
-
-      {/* Render Multiple Unicorns */}
       {unicorns.map(unicorn => (
         <div 
           key={unicorn.id}
