@@ -60,9 +60,6 @@ const config = {
           teal: "#14B8A6",
         },
       },
-      borderColor: {
-        DEFAULT: "hsl(var(--border))",
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
