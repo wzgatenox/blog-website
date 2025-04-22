@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StarryBackground } from "@/components/StarryBackground";
+import { LightModeBackgroundAccent } from "@/components/LightModeBackgroundAccent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background`}>
+      <body className={`${inter.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -27,7 +28,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <StarryBackground />
-          <div className="relative min-h-screen">
+          <LightModeBackgroundAccent />
+          <div className="relative min-h-screen bg-transparent">
             <Nav />
             <main className="container mx-auto px-4 py-8">
               {children}

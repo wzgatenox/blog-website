@@ -33,6 +33,14 @@ const config = {
           980: '#030A14',
           990: '#01050A',
         },
+        pastel: {
+          red: '#FFD1D1',    // Light pink/red
+          orange: '#FFE4C4', // Light peach/orange
+          yellow: '#FFFACD', // Lemon chiffon
+          green: '#D1FFD1',  // Light mint green
+          blue: '#D1E1FF',   // Light sky blue
+          purple: '#E1D1FF', // Light lavender
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
