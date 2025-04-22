@@ -8,7 +8,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 gradient-text">
             Exploring the World of Dreams
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">

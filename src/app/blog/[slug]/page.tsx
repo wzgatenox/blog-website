@@ -30,8 +30,15 @@ export default async function BlogPost({ params }: PageProps) {
   return (
     <div className="relative min-h-screen">
       <article className="relative prose prose-gray prose-invert mx-auto max-w-4xl py-8 px-4">
-        <h1 className="text-6xl font-bold tracking-tight gradient-text mb-6 leading-tight">
-          {post.title}
+        <h1 className="text-6xl font-bold tracking-tight mb-6 leading-tight">
+          {post.title.split('Dreams').map((part, index, arr) => (
+            <React.Fragment key={index}>
+              {part}
+              {index < arr.length - 1 && (
+                <span className="gradient-text">DREAMS</span>
+              )}
+            </React.Fragment>
+          ))}
         </h1>
         {post.subtitle && (
           <p className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
