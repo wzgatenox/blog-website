@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
-import { StarrySky } from "@/components/starry-sky";
+import { StarryBackground } from "@/components/StarryBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,8 +26,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <StarrySky />
-          <div className="min-h-screen bg-background/80 backdrop-blur-sm">
+          <StarryBackground />
+          <div className="min-h-screen bg-transparent">
             <Nav />
             <main className="container mx-auto px-4 py-8">
               {children}

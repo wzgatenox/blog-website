@@ -24,6 +24,10 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        navy: {
+          900: '#0A192F',
+          950: '#050B16',
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -74,6 +78,10 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        twinkle: {
+          '0%, 100%': { opacity: '0.2' },
+          '50%': { opacity: '1' },
+        },
         // Custom animations
         "fade-in": {
           "0%": { opacity: "0" },
@@ -92,6 +100,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "twinkle": "twinkle 3s ease-in-out infinite",
         // Custom animations
         "fade-in": "fade-in 0.5s ease-out",
         "slide-up": "slide-up 0.5s ease-out",
@@ -99,7 +108,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config
 
 export default config 

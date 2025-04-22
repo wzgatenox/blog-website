@@ -16,7 +16,6 @@ export function generateStaticParams() {
 export const dynamicParams = false
 
 export default async function BlogPost({ params }: BlogPostProps) {
-  // In Next.js 15, we need to await the params
   const { slug } = await params
   const post = blogPosts[slug]
 
@@ -25,39 +24,41 @@ export default async function BlogPost({ params }: BlogPostProps) {
   }
 
   return (
-    <article className="prose prose-gray dark:prose-invert mx-auto max-w-4xl py-8">
-      <h1 className="text-6xl font-bold tracking-tight gradient-text mb-6 leading-tight">
-        {post.title}
-      </h1>
-      {post.subtitle && (
-        <p className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
-          {post.subtitle}
-        </p>
-      )}
-      <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">
-        <time dateTime={post.date}>{post.date}</time>
-        <span>•</span>
-        <span>{post.author}</span>
-      </div>
-      <div className="mt-8 space-y-6">
-        {post.content.split("\n\n").map((paragraph, index) => (
-          <p key={index} className="leading-7">
-            {paragraph}
+    <div className="relative min-h-screen">
+      <article className="relative prose prose-gray prose-invert mx-auto max-w-4xl py-8 px-4">
+        <h1 className="text-6xl font-bold tracking-tight gradient-text mb-6 leading-tight">
+          {post.title}
+        </h1>
+        {post.subtitle && (
+          <p className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
+            {post.subtitle}
           </p>
-        ))}
-      </div>
-      {post.worksCited && post.worksCited.length > 0 && (
-        <div className="mt-12 border-t pt-8">
-          <h2 className="text-2xl font-semibold mb-4">Works Cited</h2>
-          <ul className="space-y-2">
-            {post.worksCited.map((citation, index) => (
-              <li key={index} className="text-sm text-muted-foreground">
-                {citation}
-              </li>
-            ))}
-          </ul>
+        )}
+        <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">
+          <time dateTime={post.date}>{post.date}</time>
+          <span>•</span>
+          <span>{post.author}</span>
         </div>
-      )}
-    </article>
+        <div className="mt-8 space-y-6">
+          {post.content.split("\n\n").map((paragraph, index) => (
+            <p key={index} className="leading-7">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+        {post.worksCited && post.worksCited.length > 0 && (
+          <div className="mt-12 border-t border-white/20 pt-8">
+            <h2 className="text-2xl font-semibold mb-4">Works Cited</h2>
+            <ul className="space-y-2">
+              {post.worksCited.map((citation, index) => (
+                <li key={index} className="text-sm text-muted-foreground">
+                  {citation}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </article>
+    </div>
   )
 } 
