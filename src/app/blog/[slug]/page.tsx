@@ -42,11 +42,26 @@ export default async function BlogPost({ params }: PageProps) {
           <span>{post.author}</span>
         </div>
         <div className="mt-8 space-y-6">
-          {post.content.split("\n\n").map((paragraph, index) => (
-            <p key={index} className="leading-7">
-              {paragraph}
-            </p>
-          ))}
+          {post.content.split('\n').map((line, index) => {
+            if (line.startsWith('##')) {
+              return (
+                <h2
+                  key={index}
+                  className="text-3xl font-semibold mt-10 mb-4 gradient-text leading-tight"
+                >
+                  {line.substring(2).trim()}
+                </h2>
+              )
+            } else if (line.trim() !== '') {
+              return (
+                <p key={index} className="leading-7">
+                  {line}
+                </p>
+              )
+            } else {
+              return null
+            }
+          })}
         </div>
         {post.worksCited && post.worksCited.length > 0 && (
           <div className="mt-12 border-t border-white/20 pt-8">
