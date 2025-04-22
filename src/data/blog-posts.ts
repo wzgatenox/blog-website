@@ -5,12 +5,14 @@ export interface BlogPost {
   author: string
   subtitle?: string
   worksCited?: string[]
+  imageUrl?: string
 }
 
 export const blogPosts: Record<string, BlogPost> = {
   "what-if-your-dreams-are-lying": {
     title: "What If Your Dreams Are Lying to You?",
     subtitle: "Exploring the complex relationship between dreams, meaning, and neuroscience",
+    imageUrl: "/purple-brain.jpeg",
     content: `You wake up breathless and your heart is pounding. It felt like a vivid, emotional, as well as a strangely meaningful memory more so than just a dream. Perhaps it was trying to tell you something about yourself… But what if it wasn't?
 
 If you've ever found yourself lying awake, replaying thoughts you can't explain, you're not alone. We all dream and sometimes those dreams feel like they matter. Dreams have been seen as symbolic for many centuries. Ancient Egyptians believed they were messages from the gods. Some Indigenous North American traditions treat dreams as spiritual guides (Barrett 8). Freud built on this tradition. He argued that dreams reveal certain hidden fears, desires, and memories.
