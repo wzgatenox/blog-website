@@ -1,9 +1,10 @@
 import Link from "next/link"
 import { Search } from "@/components/search"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function Nav() {
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -30,6 +31,7 @@ export function Nav() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <Search />
           </div>
+          <ThemeToggle />
         </div>
       </div>
     </nav>
