@@ -41,7 +41,7 @@ export default async function BlogPost({ params }: PageProps) {
       const headingText = line.substring(2).trim();
       contentBlocks.push({ type: 'heading', content: headingText });
       if (headingText.toLowerCase().includes('freud')) {
-        nextImage = { src: '/freud.jpeg', alt: 'Sigmund Freud', side: 'left' };
+        nextImage = { src: '/Freud.jpeg', alt: 'Sigmund Freud', side: 'left' };
       } else if (headingText.toLowerCase().includes('science says')) {
         nextImage = { src: '/synthesis-model.jpeg', alt: 'Activation-Synthesis Model Diagram', side: 'right' };
       } else {
