@@ -111,11 +111,13 @@ export default async function BlogPost({ params }: PageProps) {
         </div>
 
         {post.worksCited && post.worksCited.length > 0 && (
-          <div className="mt-12 border-t border-white/20 pt-8 clear-both"> {/* Added clear-both */}
-            <h2 className="text-2xl font-semibold mb-4">Works Cited</h2>
-            <ul className="space-y-2">
+          <div className="mt-12 border-t border-white/20 pt-8 clear-both">
+            {/* Smaller Works Cited Heading */}
+            <h2 className="text-xl font-semibold mb-3">Works Cited</h2> 
+            <ul className="space-y-1.5">
               {post.worksCited.map((citation, index) => (
-                <li key={index} className="text-sm text-muted-foreground">
+                // Smaller list item text
+                <li key={index} className="text-xs text-muted-foreground">
                   {citation}
                 </li>
               ))}
