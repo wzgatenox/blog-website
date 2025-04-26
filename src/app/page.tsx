@@ -1,70 +1,50 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { blogPosts } from "@/data/blog-posts"
-import Image from "next/image"
+import React from "react"
+import { AnimatedHeading } from "@/components/AnimatedHeading"
 
-export default function Home() {
+const aboutContent = `
+About This Blog
+
+Hi, I'm Maia - a student with a curious mind and a love for dreams.
+My goal isn't to make sense of every dream. It's to open up ideas, challenge assumptions, and maybe help you see your own dreams - and your own mind - a little differently.
+
+I don't claim to have all the answers (who does?), but I love asking questions: Why do we dream? Why do some dreams feel so real? What's going on in our brains while we sleep?
+
+This blog is where I explore those questions - from what science says to the strange, personal side of dreaming.
+
+If you've ever woken up from a dream and thought, what was that? - you're in the right place.
+`
+
+export default function AboutPage() {
+  const lines = aboutContent.trim().split('\n')
+  const mainHeading = lines[0] || "About"
+  const contentLines = lines.slice(2) // Skip main heading and the following blank line
+
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 gradient-text">
-            Exploring the World of Dreams
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-            Discover insights about dreams, consciousness, and the mysteries of the mind
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button asChild>
-              <Link href="/blog">Read Blog</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/about">About</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+    <div className="max-w-3xl mx-auto py-12 px-4">
+      {/* Main Heading - Left Aligned */}
+      <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 gradient-text leading-tight">
+        {mainHeading}
+      </h1>
 
-      {/* Featured Posts - Updated Layout */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Latest Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.entries(blogPosts).map(([slug, post]) => (
-              <article key={slug} className="group flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
-                <Link href={`/blog/${slug}`} className="flex flex-col h-full">
-                  {/* Image Section */}
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    {post.imageUrl ? (
-                      <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-400 dark:from-gray-700 dark:to-gray-800" />
-                    )}
-                  </div>
-
-                  {/* Content Section Below Image */}
-                  <div className="flex flex-col flex-grow p-4 md:p-6">
-                    <time dateTime={post.date} className="block text-xs text-muted-foreground mb-2">
-                      {new Date(post.date).toLocaleDateString('en-GB')} 
-                    </time>
-                    <h3 className="text-lg md:text-xl font-semibold leading-snug group-hover:text-primary transition-colors flex-grow">
-                      {post.title}
-                    </h3>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
+      <div className="prose prose-lg dark:prose-invert mx-auto space-y-6">
+        {contentLines.map((line, index) => {
+          if (line.startsWith('##')) {
+            // Render AnimatedHeading for subheadings (though none in current text)
+            const headingText = line.substring(2).trim()
+            return <AnimatedHeading key={index} text={headingText} />
+          } else if (line.trim() !== '') {
+            // Render non-empty lines as paragraphs
+            return (
+              <p key={index} className="leading-relaxed">
+                {line}
+              </p>
+            )
+          } else {
+            // Return null for empty lines
+            return null
+          }
+        })}
         </div>
-      </section>
-    </main>
+    </div>
   )
 }
