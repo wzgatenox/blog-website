@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Search } from "@/components/search"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export function Nav() {
@@ -28,9 +27,7 @@ export function Nav() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Search />
-          </div>
+          
           <ThemeToggle />
         </div>
       </div>
