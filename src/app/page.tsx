@@ -1,8 +1,10 @@
 import React from "react"
-import { AnimatedHeading } from "@/components/AnimatedHeading"
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 const aboutContent = `
-About This Blog
+Maia's Dreams Blog
 
 Hi, I'm Maia - a student with a curious mind and a love for dreams.
 My goal isn't to make sense of every dream. It's to open up ideas, challenge assumptions, and maybe help you see your own dreams - and your own mind - a little differently.
@@ -14,37 +16,55 @@ This blog is where I explore those questions - from what science says to the str
 If you've ever woken up from a dream and thought, what was that? - you're in the right place.
 `
 
-export default function AboutPage() {
+export default function HomePage() {
   const lines = aboutContent.trim().split('\n')
   const mainHeading = lines[0] || "About"
-  const contentLines = lines.slice(2) // Skip main heading and the following blank line
 
   return (
-    <div className="max-w-3xl mx-auto py-12 px-4">
-      {/* Main Heading - Left Aligned */}
-      <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 gradient-text leading-tight">
+    <div className="max-w-3xl mx-auto py-12 px-4 flex flex-col items-center">
+      <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 gradient-text leading-tight text-center">
         {mainHeading}
       </h1>
 
-      <div className="prose prose-lg dark:prose-invert mx-auto space-y-6">
-        {contentLines.map((line, index) => {
-          if (line.startsWith('##')) {
-            // Render AnimatedHeading for subheadings (though none in current text)
-            const headingText = line.substring(2).trim()
-            return <AnimatedHeading key={index} text={headingText} />
-          } else if (line.trim() !== '') {
-            // Render non-empty lines as paragraphs
-            return (
-              <p key={index} className="leading-relaxed">
-                {line}
-              </p>
-            )
-          } else {
-            // Return null for empty lines
-            return null
-          }
-        })}
+      <div className="prose prose-lg dark:prose-invert w-full space-y-6">
+        <p className="leading-relaxed text-center">
+          Hi, I&apos;m Maia - a student with a curious mind and a love for dreams.
+        </p>
+
+        <div className="relative w-64 h-64 mx-auto my-8 rounded-full overflow-hidden shadow-lg not-prose">
+          <Image 
+            src="/maia.jpg" 
+            alt="Maia profile picture" 
+            fill 
+            style={{ objectFit: "cover" }}
+            priority 
+          />
         </div>
+
+        <p className="leading-relaxed">
+          My goal isn&apos;t to make sense of every dream. It&apos;s to open up ideas, challenge assumptions, and maybe help you see your own dreams - and your own mind - a little differently.
+        </p>
+        <p className="leading-relaxed">
+          I don&apos;t claim to have all the answers (who does?), but I love asking questions: Why do we dream? Why do some dreams feel so real? What&apos;s going on in our brains while we sleep?
+        </p>
+        <p className="leading-relaxed">
+          This blog is where I explore those questions - from what science says to the strange, personal side of dreaming.
+        </p>
+        <p className="leading-relaxed">
+          If you&apos;ve ever woken up from a dream and thought, what was that? - you&apos;re in the right place.
+        </p>
+      </div>
+
+      <div className="mt-12">
+        <Link href="/blog/what-if-your-dreams-are-lying">
+          <Button 
+            size="lg" 
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6"
+          >
+            Read My Blog
+          </Button>
+        </Link>
+      </div>
     </div>
   )
 }
