@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes";
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 
 interface ThemeProviderProps {
@@ -14,12 +15,19 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
+      attribute="data-theme"
+      defaultTheme="dark"
       enableSystem
       {...props}
     >
-      {children}
+      <Theme>{children}</Theme>
     </NextThemesProvider>
   )
-} 
+}
+
+function Theme({ children }: { children: React.ReactNode }) {
+    const { resolvedTheme } = useTheme();
+    return (
+        <body data-theme={resolvedTheme ?? 'dark'}>{children}</body>
+    );
+}
