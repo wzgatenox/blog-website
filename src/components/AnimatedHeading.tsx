@@ -11,7 +11,7 @@ interface WordState {
 
 interface AnimatedHeadingProps {
   text: string;
-  // Optional props to control animation behavior
+  id?: string;
   minInterval?: number; // Min ms before a word *can* change state
   maxInterval?: number; // Max ms before a word *can* change state
   maxAnimatedWords?: number; // New prop for limit
@@ -24,6 +24,7 @@ const getRandomDelay = (min: number, max: number) => {
 
 export function AnimatedHeading({
   text,
+  id,
   minInterval = 5000, // Default: 5 seconds min
   maxInterval = 15000, // Default: 15 seconds max
   maxAnimatedWords = 2 // Default limit to 2 words
@@ -110,7 +111,10 @@ export function AnimatedHeading({
   // Render static text server-side and before first mount+effect
   if (!mounted) {
      return (
-        <h2 className="text-3xl font-semibold mt-10 mb-4 leading-tight">
+        <h2 
+          id={id}
+          className="text-3xl font-semibold mt-10 mb-4 leading-tight"
+        >
             {text}
         </h2>
      )
@@ -118,7 +122,10 @@ export function AnimatedHeading({
 
   // Render potentially animated text after mount
   return (
-    <h2 className="text-3xl font-semibold mt-10 mb-4 leading-tight">
+    <h2 
+      id={id}
+      className="text-3xl font-semibold mt-10 mb-4 leading-tight scroll-mt-20"
+    >
       {wordStates.map((word) => (
         <React.Fragment key={word.id}>
           {word.isAnimated ? (

@@ -82,6 +82,11 @@
     --input: 240 3.7% 15.9%; /* Dark Gray */
     --ring: 240 4.9% 83.9%; /* Light Gray */
   }
+
+  html {
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+    scroll-padding-top: 5rem; /* Add padding to top when scrolling to ID, adjust as needed */
+  }
 }
  
 @layer base {
