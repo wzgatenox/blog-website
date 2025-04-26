@@ -4,7 +4,6 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StarryBackground } from "@/components/StarryBackground";
-import { LightModeBackgroundAccent } from "@/components/LightModeBackgroundAccent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +29,6 @@ export default function RootLayout({
           {/* Background Elements - Rendered First */}
           <div className="fixed inset-0 z-0"> {/* Container for backgrounds at z-0 */}
              <StarryBackground />
-             <LightModeBackgroundAccent />
           </div>
           
           {/* Main Content Wrapper - Relative, z-10 */}

@@ -26,7 +26,7 @@ export default function HomePage() {
         {mainHeading}
       </h1>
 
-      <div className="prose prose-lg dark:prose-invert w-full space-y-6">
+      <div className="prose prose-lg dark:prose-invert w-full space-y-6 text-center">
         <p className="leading-relaxed text-center">
           Hi, I&apos;m Maia - a student with a curious mind and a love for dreams.
         </p>
