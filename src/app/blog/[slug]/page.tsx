@@ -16,15 +16,15 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-// Define props for the server component if needed (can reuse or simplify)
-interface PageProps {
-  params: { // No need for Promise here
-    slug: string
-  }
-}
+// Remove the PageProps interface
+// interface PageProps {
+//   params: { 
+//     slug: string
+//   }
+// }
 
-// Server Component (Data Fetching)
-export default async function BlogPost({ params }: PageProps) {
+// Server Component - Remove explicit PageProps typing for params
+export default async function BlogPost({ params }: { params: { slug: string } }) { // Let TS infer or use inline type
   const slug = params.slug;
   const post = blogPosts[slug];
 
