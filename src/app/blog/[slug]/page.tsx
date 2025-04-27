@@ -7,24 +7,28 @@ import React from "react"
 // Import the new client component
 import { BlogPostClient } from "@/components/BlogPostClient"
 
-// Keep generateStaticParams
+// Restore generateStaticParams
 export function generateStaticParams() {
   return Object.keys(blogPosts).map((slug) => ({
     slug,
   }))
 }
 
-export const dynamicParams = false
+export const dynamicParams = false // Restore dynamicParams
 
-// Define props for the server component if needed (can reuse or simplify)
+// Remove the PageProps interface definition
+/*
 interface PageProps {
-  params: { // No need for Promise here
+  params: { 
     slug: string
   }
 }
+*/
 
 // Server Component (Data Fetching)
-export default async function BlogPost({ params }: PageProps) {
+// Use inline type definition for props
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function BlogPost({ params }: any) {
   const slug = params.slug;
   const post = blogPosts[slug];
 

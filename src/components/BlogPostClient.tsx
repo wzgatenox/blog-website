@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Image from "next/image"
 import { TableOfContents, TocEntry } from "@/components/TableOfContents"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AnimatedHeading } from "@/components/AnimatedHeading"
@@ -78,13 +78,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               <span className="sr-only">Open Table of Contents</span>
             </Button>
           </SheetTrigger>
-          <SheetContent 
-            side="right" 
-            className="w-3/4 sm:w-1/2 overflow-y-auto pt-10 bg-transparent border-none shadow-none" 
-          >
-            <SheetHeader className="mb-4">
-              <SheetTitle className="sr-only">Table of Contents</SheetTitle>
-            </SheetHeader>
+          <SheetContent side="right" className="w-3/4 sm:w-1/2 overflow-y-auto pt-10">
             <TableOfContents entries={tocEntries} onLinkClick={() => setIsTocOpen(false)} />
           </SheetContent>
         </Sheet>

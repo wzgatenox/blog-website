@@ -37,27 +37,27 @@ export function TableOfContents({ entries, onLinkClick }: TableOfContentsProps) 
   };
 
   return (
-    // Conditional background/text/border for light/dark modes
+    // Use motion.nav for animation
     <motion.nav 
-      className="toc p-4 rounded-lg border border-slate-200 dark:border-indigo-800 bg-slate-100 dark:bg-indigo-950 shadow-sm" 
+      className="toc p-4 rounded-lg border bg-card text-card-foreground shadow-sm" // Added padding, background, border, shadow
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <h3 className="text-lg font-semibold mb-4 border-b pb-2 border-slate-200 dark:border-indigo-800 text-slate-900 dark:text-indigo-100">On This Page</h3>
+      <h3 className="text-lg font-semibold mb-4 border-b pb-2">On This Page</h3> {/* Added border-bottom */} 
       <ol className="space-y-1 text-sm list-none pl-0">
         {entries.map((entry) => (
+          // Animate each list item
           <motion.li 
             key={entry.id} 
             variants={itemVariants} 
-            className="rounded transition-colors duration-150"
-            // Accent hover should adapt to light/dark automatically via CSS variables
-            whileHover={{ backgroundColor: 'hsl(var(--accent))' }}
+            className="rounded transition-colors duration-150" // Base styling for hover
+            whileHover={{ backgroundColor: 'hsl(var(--accent))' }} // Hover effect using motion
           >
             <a 
               href={`#${entry.id}`} 
-              onClick={onLinkClick} 
-              className="block px-2 py-1.5 text-slate-700 hover:text-slate-900 dark:text-indigo-300 dark:hover:text-indigo-100"
+              onClick={onLinkClick} // Call the callback on click
+              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground"
             >
               {entry.text}
             </a>
