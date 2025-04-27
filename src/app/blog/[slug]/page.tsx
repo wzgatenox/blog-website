@@ -1,4 +1,4 @@
-// Keep server-side imports 123
+// Keep server-side imports
 import { notFound } from "next/navigation"
 import { blogPosts } from "@/data/blog-posts"
 import React from "react"
@@ -16,15 +16,15 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-// Remove the PageProps interface
-// interface PageProps {
-//   params: { 
-//     slug: string
-//   }
-// }
+// Define props for the server component if needed (can reuse or simplify)
+interface PageProps {
+  params: { // No need for Promise here
+    slug: string
+  }
+}
 
-// Server Component - Remove explicit PageProps typing for params
-export default async function BlogPost({ params }: { params: { slug: string } }) { // Let TS infer or use inline type
+// Server Component (Data Fetching)
+export default async function BlogPost({ params }: PageProps) {
   const slug = params.slug;
   const post = blogPosts[slug];
 
