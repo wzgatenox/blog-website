@@ -124,81 +124,147 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
 
         {/* Render processed content blocks */}
         <div className="mt-8 space-y-6 clear-both">
-          {contentBlocks.map((block, index) => {
-            // Insert Freud image at the start of Freud section
-            if (
-              block.type === 'heading' &&
-              block.content.toLowerCase().includes("freud") &&
-              post.freudImageUrl
-            ) {
-              return [
-                <AnimatedHeading key={index} id={block.id} text={block.content} />,
-                <div key={index + '-freud-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
-                  <Image
-                    src={post.freudImageUrl}
-                    alt="The layers of dream interpretation according to Freud"
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              ];
+          {(() => {
+            let inFreudSection = false;
+            let lastFreudParagraphIndex = -1;
+            // First, find the last paragraph index in the Freud section
+            for (let i = 0; i < contentBlocks.length; i++) {
+              const block = contentBlocks[i];
+              if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
+                inFreudSection = true;
+              } else if (block.type === 'heading' && !block.content.toLowerCase().includes('freud') && inFreudSection) {
+                inFreudSection = false;
+              } else if (block.type === 'paragraph' && inFreudSection) {
+                lastFreudParagraphIndex = i;
+              }
             }
-            // Insert Neuroscience image at the start of Neuroscience section
-            if (
-              block.type === 'heading' &&
-              block.content.toLowerCase().includes("neuroscience") &&
-              post.neuroscienceImageUrl
-            ) {
-              return [
-                <AnimatedHeading key={index} id={block.id} text={block.content} />,
-                <div key={index + '-neuro-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
-                  <Image
-                    src={post.neuroscienceImageUrl}
-                    alt="The brain's activity during dreaming"
-                    fill
-                    style={{ objectFit: "contain" }}
-                  />
-                </div>
-              ];
+            inFreudSection = false;
+            let justEndedFreudSection = false;
+            let afterWindtImage = false;
+            let windtImageInserted = false;
+            let windtSectionStarted = false;
+            const renderedBlocks = [];
+            for (let index = 0; index < contentBlocks.length; index++) {
+              const block = contentBlocks[index];
+              // Freud section logic
+              if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
+                inFreudSection = true;
+                renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
+                continue;
+              }
+              if (block.type === 'heading' && !block.content.toLowerCase().includes('freud') && inFreudSection) {
+                inFreudSection = false;
+                justEndedFreudSection = true;
+              }
+              if (block.type === 'paragraph' && inFreudSection && index === lastFreudParagraphIndex && post.freudImageUrl) {
+                renderedBlocks.push(
+                  <p key={index} className="leading-relaxed">
+                    <span>{block.content}</span>
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose">
+                      <Image
+                        src={post.freudImageUrl}
+                        alt="The layers of dream interpretation according to Freud"
+                        width={320}
+                        height={240}
+                        style={{ objectFit: "contain", display: "block" }}
+                      />
+                    </span>
+                  </p>
+                );
+                continue;
+              }
+              // Insert clear-both after Freud section
+              if (justEndedFreudSection) {
+                renderedBlocks.push(<div key={index + '-clear'} className="clear-both" />);
+                justEndedFreudSection = false;
+              }
+              // Neuroscience image after heading
+              if (
+                block.type === 'heading' &&
+                block.content.toLowerCase().includes('neuroscience') &&
+                post.neuroscienceImageUrl
+              ) {
+                renderedBlocks.push(
+                  <React.Fragment key={index}>
+                    <AnimatedHeading id={block.id} text={block.content} />
+                    <div className="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose">
+                      <Image
+                        src={post.neuroscienceImageUrl}
+                        alt="The brain's activity during dreaming"
+                        width={320}
+                        height={240}
+                        style={{ objectFit: "contain", display: "block" }}
+                      />
+                    </div>
+                  </React.Fragment>
+                );
+                continue;
+              }
+              // Windt image after heading: set flag to insert image in next paragraph
+              if (
+                block.type === 'heading' &&
+                block.content.toLowerCase().includes('middle ground') &&
+                post.windtImageUrl
+              ) {
+                renderedBlocks.push(
+                  <AnimatedHeading key={index} id={block.id} text={block.content} />
+                );
+                windtImageInserted = false;
+                windtSectionStarted = true;
+                afterWindtImage = false;
+                continue;
+              }
+              // Insert Windt image as float-right at start of first paragraph after heading ONLY
+              if (windtSectionStarted && !windtImageInserted && post.windtImageUrl && block.type === 'paragraph') {
+                renderedBlocks.push(
+                  <p key={index} className="leading-relaxed">
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[400px]">
+                      <Image
+                        src={post.windtImageUrl}
+                        alt="The intersection of memory and imagination in dreams"
+                        width={400}
+                        height={240}
+                        style={{ objectFit: "contain", display: "block" }}
+                      />
+                    </span>
+                    {block.content}
+                  </p>
+                );
+                windtImageInserted = true;
+                windtSectionStarted = false;
+                afterWindtImage = true;
+                continue;
+              }
+              // First paragraph after Windt image gets clear-both
+              if (afterWindtImage && block.type === 'paragraph') {
+                renderedBlocks.push(
+                  <p key={index} className="leading-relaxed clear-both">{block.content}</p>
+                );
+                afterWindtImage = false;
+                continue;
+              }
+              // Default rendering
+              if (block.type === 'heading') {
+                renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
+              } else if (block.type === 'paragraph') {
+                renderedBlocks.push(<p key={index} className="leading-relaxed">{block.content}</p>);
+              } else if (block.type === 'image') {
+                const floatClass = block.imageSide === 'left' ? 'float-left mr-6 mb-4' : 'float-right ml-6 mb-4';
+                renderedBlocks.push(
+                  <div key={index} className={`relative w-1/2 md:w-1/3 ${floatClass} shape-outside-rectangle not-prose`}>
+                    <Image
+                      src={block.content}
+                      alt={block.alt || 'Blog post image'}
+                      width={400}
+                      height={400}
+                      className="rounded-md shadow-md w-full h-auto"
+                    />
+                  </div>
+                );
+              }
             }
-            // Insert Windt image at the start of Windt section
-            if (
-              block.type === 'heading' &&
-              block.content.toLowerCase().includes("middle ground") &&
-              post.windtImageUrl
-            ) {
-              return [
-                <AnimatedHeading key={index} id={block.id} text={block.content} />,
-                <div key={index + '-windt-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
-                  <Image
-                    src={post.windtImageUrl}
-                    alt="The intersection of memory and imagination in dreams"
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              ];
-            }
-            if (block.type === 'heading') {
-              return <AnimatedHeading key={index} id={block.id} text={block.content} />;
-            } else if (block.type === 'paragraph') {
-              return <p key={index} className="leading-relaxed">{block.content}</p>;
-            } else if (block.type === 'image') {
-              const floatClass = block.imageSide === 'left' ? 'float-left mr-6 mb-4' : 'float-right ml-6 mb-4';
-              return (
-                <div key={index} className={`relative w-1/2 md:w-1/3 ${floatClass} shape-outside-rectangle not-prose`}>
-                  <Image
-                    src={block.content}
-                    alt={block.alt || 'Blog post image'}
-                    width={400}
-                    height={400}
-                    className="rounded-md shadow-md w-full h-auto"
-                  />
-                </div>
-              );
-            }
-            return null;
-          })}
+            return renderedBlocks;
+          })()}
         </div>
 
         {/* Works Cited Section */}
