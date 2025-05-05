@@ -11,9 +11,10 @@ export interface TocEntry {
 interface TableOfContentsProps {
   entries: TocEntry[];
   onLinkClick?: () => void; // Add optional callback
+  hasWorksCited?: boolean;
 }
 
-export function TableOfContents({ entries, onLinkClick }: TableOfContentsProps) {
+export function TableOfContents({ entries, onLinkClick, hasWorksCited }: TableOfContentsProps) {
   if (!entries || entries.length === 0) {
     return null; // Don't render anything if no headings
   }
@@ -63,6 +64,21 @@ export function TableOfContents({ entries, onLinkClick }: TableOfContentsProps) 
             </a>
           </motion.li>
         ))}
+        {hasWorksCited && (
+          <motion.li 
+            variants={itemVariants} 
+            className="rounded transition-colors duration-150 mt-4 pt-4 border-t border-border/50"
+            whileHover={{ backgroundColor: 'hsl(var(--accent))' }}
+          >
+            <a 
+              href="#works-cited" 
+              onClick={onLinkClick}
+              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground"
+            >
+              Works Cited
+            </a>
+          </motion.li>
+        )}
       </ol>
     </motion.nav>
   );

@@ -79,14 +79,21 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-3/4 sm:w-1/2 overflow-y-auto pt-10">
-            <TableOfContents entries={tocEntries} onLinkClick={() => setIsTocOpen(false)} />
+            <TableOfContents 
+              entries={tocEntries} 
+              onLinkClick={() => setIsTocOpen(false)} 
+              hasWorksCited={post.worksCited && post.worksCited.length > 0} 
+            />
           </SheetContent>
         </Sheet>
       </div>
 
       {/* Desktop Table of Contents */}
       <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-4">
-         <TableOfContents entries={tocEntries} />
+        <TableOfContents 
+          entries={tocEntries} 
+          hasWorksCited={post.worksCited && post.worksCited.length > 0} 
+        />
       </aside>
 
       {/* Article Content */}
@@ -142,7 +149,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
 
         {/* Works Cited Section */}
         {post.worksCited && post.worksCited.length > 0 && (
-          <div className="mt-12 border-t border-white/20 pt-8 clear-both">
+          <div id="works-cited" className="mt-12 border-t border-white/20 pt-8 clear-both">
             <h2 className="text-xl font-semibold mb-3">Works Cited</h2> 
             <ul className="space-y-1.5">
               {post.worksCited.map((citation, index) => (
