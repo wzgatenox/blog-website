@@ -40,6 +40,11 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
   const tocEntries: TocEntry[] = [];
   let nextImage: { src: string; alt: string; side: 'left' | 'right' } | null = null;
 
+  // Add subtitle to ToC if it exists
+  if (post.subtitle) {
+    tocEntries.push({ id: 'subtitle', text: post.subtitle });
+  }
+
   post.content.split('\n').forEach(line => {
     if (line.startsWith('##')) {
       const headingText = line.substring(2).trim();
@@ -103,7 +108,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           {post.title}
         </h1>
         {post.subtitle && (
-          <p className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
+          <p id="subtitle" className="text-2xl text-muted-foreground mt-6 mb-8 leading-relaxed">
             {post.subtitle}
           </p>
         )}
@@ -148,6 +153,10 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
             const renderedBlocks = [];
             for (let index = 0; index < contentBlocks.length; index++) {
               const block = contentBlocks[index];
+              // Insert clear-both before 'Interpreting Dreams: Meaning or Making It Up?' heading
+              if (block.type === 'heading' && block.content.trim().toLowerCase().startsWith('interpreting dreams:')) {
+                renderedBlocks.push(<div key={index + '-clear-interpreting'} className="clear-both" />);
+              }
               // Freud section logic
               if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
                 inFreudSection = true;
@@ -221,12 +230,12 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               if (windtSectionStarted && !windtImageInserted && post.windtImageUrl && block.type === 'paragraph') {
                 renderedBlocks.push(
                   <p key={index} className="leading-relaxed">
-                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[400px]">
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[600px]">
                       <Image
                         src={post.windtImageUrl}
                         alt="The intersection of memory and imagination in dreams"
-                        width={400}
-                        height={240}
+                        width={600}
+                        height={360}
                         style={{ objectFit: "contain", display: "block" }}
                       />
                     </span>
