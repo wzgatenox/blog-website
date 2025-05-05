@@ -127,7 +127,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           {(() => {
             let inFreudSection = false;
             let lastFreudParagraphIndex = -1;
-            // First, find the last paragraph index in the Freud section
+            let secondToLastFreudParagraphIndex = -1;
+            // First, find the last and second-to-last paragraph index in the Freud section
             for (let i = 0; i < contentBlocks.length; i++) {
               const block = contentBlocks[i];
               if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
@@ -135,6 +136,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               } else if (block.type === 'heading' && !block.content.toLowerCase().includes('freud') && inFreudSection) {
                 inFreudSection = false;
               } else if (block.type === 'paragraph' && inFreudSection) {
+                secondToLastFreudParagraphIndex = lastFreudParagraphIndex;
                 lastFreudParagraphIndex = i;
               }
             }
@@ -156,11 +158,11 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                 inFreudSection = false;
                 justEndedFreudSection = true;
               }
-              if (block.type === 'paragraph' && inFreudSection && index === lastFreudParagraphIndex && post.freudImageUrl) {
+              // Insert Freud image at the second-to-last paragraph
+              if (block.type === 'paragraph' && inFreudSection && index === secondToLastFreudParagraphIndex && post.freudImageUrl) {
                 renderedBlocks.push(
                   <p key={index} className="leading-relaxed">
-                    <span>{block.content}</span>
-                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose">
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[320px]">
                       <Image
                         src={post.freudImageUrl}
                         alt="The layers of dream interpretation according to Freud"
@@ -169,6 +171,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                         style={{ objectFit: "contain", display: "block" }}
                       />
                     </span>
+                    {block.content}
                   </p>
                 );
                 continue;
@@ -191,8 +194,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                       <Image
                         src={post.neuroscienceImageUrl}
                         alt="The brain's activity during dreaming"
-                        width={320}
-                        height={240}
+                        width={600}
+                        height={360}
                         style={{ objectFit: "contain", display: "block" }}
                       />
                     </div>
