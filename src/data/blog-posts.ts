@@ -6,6 +6,9 @@ export interface BlogPost {
   subtitle?: string
   worksCited?: string[]
   imageUrl?: string
+  freudImageUrl?: string
+  neuroscienceImageUrl?: string
+  windtImageUrl?: string
 }
 
 export const blogPosts: Record<string, BlogPost> = {
@@ -13,6 +16,9 @@ export const blogPosts: Record<string, BlogPost> = {
     title: "What If Your Dreams Are Lying to You?",
     subtitle: "Exploring the complex relationship between dreams, meaning, and neuroscience",
     imageUrl: "/purple-brain.jpeg",
+    freudImageUrl: "/manifest-content.jpeg",
+    neuroscienceImageUrl: "/ff34521f-daab-42ac-8889-1708d71fa2e8.jpeg",
+    windtImageUrl: "/2.jpeg",
     content: `You wake up breathless and your heart is pounding. It felt more like a vivid memory than just a dream. Emotional. Intense. Strangely important. Perhaps it was trying to tell you something about yourself… But what if it wasn't?
 
 If you've ever found yourself lying awake, replaying thoughts you can't explain, you're not alone. We all dream and sometimes those dreams feel like they matter. For centuries, people have looked to dreams for hidden meanings. Ancient Egyptians believed they were messages from the gods. Some Indigenous North American traditions treat dreams as spiritual guides (Barrett 8). Freud built on this tradition. He argued that dreams reveal certain hidden fears, desires, and memories.
@@ -24,6 +30,7 @@ To make sense of all this, we'll look at three perspectives: Freud's theory of w
 ## Freud's Theory: Dreams as Wish Fulfillment
 
 In the early 1900s, Sigmund Freud introduced a new way of thinking about dreams. He wasn't a scientist in the modern sense, but a doctor and the founder of psychoanalysis—a method based more on interpretation than experiment.
+
 
 Freud believed that every dream had two layers. The remembered part was called the manifest content—the surface-level story we recall in the morning. Beneath that was the latent content—the deeper, hidden meaning connected to our unconscious thoughts. According to him, dream analysis helps us move from the surface to what the dream is really expressing. Even today, some therapists still use dream interpretation to help people explore feelings they haven't fully processed (Hill, Knox, and Crook-Lyon).
 
@@ -42,6 +49,7 @@ It's a little like when we see faces in clouds or think we hear our name in a cr
 This theory directly challenges Freud. It says there's no hidden wish, no deep meaning. Just a very active brain doing what it always does: building stories. That kind of scientific skepticism may feel less romantic, but it forced us to reconsider a prevalent assumption: that every strange, vivid image in our dreams must point to something deeper. Or perhaps dreams are just what happens when the brain improvises with scraps of memory, emotion, and noise. But maybe it's not a choice between meaning and randomness. Maybe dreams are shaped by both: the messy signals in our brain and the emotional traces we carry with us.
 
 ## A Middle Ground: Dreams as Fictional Remembering
+
 
 A cognitive scientist, Jennifer Windt offers a theory that sits between Freud and Hobson. She sees dreams not as hidden messages or pure randomness but as something else entirely: fictional memories. In her view, dreams are stories our minds build while we sleep, blending imagination with bits of real experience (Windt 2015). Windt's idea helps explain why dreams feel meaningful, even when they're made of arbitrary brain activity. Her research suggests that dreams can have emotional weight, but that doesn't always mean they're revealing deep truths. They're more like the brain's storytelling machine working overnight. This theory connects the dots between Freud and Hobson and McCarley. It accepts that dreams are constructed, but also that they can be shaped by what's going on in your life and your mind—even if they aren't direct messages.
 

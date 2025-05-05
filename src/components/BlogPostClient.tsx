@@ -125,6 +125,60 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
         {/* Render processed content blocks */}
         <div className="mt-8 space-y-6 clear-both">
           {contentBlocks.map((block, index) => {
+            // Insert Freud image at the start of Freud section
+            if (
+              block.type === 'heading' &&
+              block.content.toLowerCase().includes("freud") &&
+              post.freudImageUrl
+            ) {
+              return [
+                <AnimatedHeading key={index} id={block.id} text={block.content} />,
+                <div key={index + '-freud-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
+                  <Image
+                    src={post.freudImageUrl}
+                    alt="The layers of dream interpretation according to Freud"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              ];
+            }
+            // Insert Neuroscience image at the start of Neuroscience section
+            if (
+              block.type === 'heading' &&
+              block.content.toLowerCase().includes("neuroscience") &&
+              post.neuroscienceImageUrl
+            ) {
+              return [
+                <AnimatedHeading key={index} id={block.id} text={block.content} />,
+                <div key={index + '-neuro-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
+                  <Image
+                    src={post.neuroscienceImageUrl}
+                    alt="The brain's activity during dreaming"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              ];
+            }
+            // Insert Windt image at the start of Windt section
+            if (
+              block.type === 'heading' &&
+              block.content.toLowerCase().includes("middle ground") &&
+              post.windtImageUrl
+            ) {
+              return [
+                <AnimatedHeading key={index} id={block.id} text={block.content} />,
+                <div key={index + '-windt-img'} className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
+                  <Image
+                    src={post.windtImageUrl}
+                    alt="The intersection of memory and imagination in dreams"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              ];
+            }
             if (block.type === 'heading') {
               return <AnimatedHeading key={index} id={block.id} text={block.content} />;
             } else if (block.type === 'paragraph') {
@@ -133,11 +187,11 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               const floatClass = block.imageSide === 'left' ? 'float-left mr-6 mb-4' : 'float-right ml-6 mb-4';
               return (
                 <div key={index} className={`relative w-1/2 md:w-1/3 ${floatClass} shape-outside-rectangle not-prose`}>
-                  <Image 
-                    src={block.content} 
+                  <Image
+                    src={block.content}
                     alt={block.alt || 'Blog post image'}
-                    width={400} 
-                    height={400} 
+                    width={400}
+                    height={400}
                     className="rounded-md shadow-md w-full h-auto"
                   />
                 </div>
