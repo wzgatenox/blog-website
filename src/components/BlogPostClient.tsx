@@ -325,9 +325,14 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           </div>
         )}
 
-        {/* Simple Comment Section */}
-        <div className="mt-12 border-t border-white/20 pt-8 max-w-xl mx-auto">
-          <h2 className="text-xl font-semibold mb-3">Share Your Thoughts</h2>
+        {/* Enhanced Comment Section */}
+        <div className="mt-12 border-t border-white/20 pt-8 max-w-2xl mx-auto bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-purple-900/40 dark:to-blue-900/60 dark:bg-[#232347]/80 border-2 border-purple-300 dark:border-purple-700 rounded-3xl shadow-2xl p-10 transition-all duration-300 hover:shadow-purple-300/40 text-gray-900 dark:text-gray-100">
+          <div className="flex flex-col items-center mb-4">
+            <span className="text-4xl mb-2">💬</span>
+            <h2 className="text-4xl font-extrabold mb-2 text-purple-900 dark:text-purple-200 text-center drop-shadow">Share Your Thoughts</h2>
+            <p className="text-lg text-muted-foreground text-center mb-4">We'd love to hear your perspective on dreams and meaning!</p>
+            <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full mb-4"></div>
+          </div>
           <CommentBoxThreaded />
         </div>
       </article>
@@ -356,7 +361,7 @@ function CommentBoxThreaded() {
       <CommentForm onSubmit={() => setRefresh(r => r + 1)} parentId={undefined} />
       <div className="mt-8">
         {loading ? (
-          <div>Loading comments...</div>
+          <div className="flex items-center gap-2 text-purple-700 dark:text-purple-200"><span className="animate-spin text-2xl">⏳</span> Loading comments...</div>
         ) : error ? (
           <div className="text-red-600">{error}</div>
         ) : comments.length === 0 ? (
@@ -380,21 +385,29 @@ function CommentForm({ parentId, onSubmit }: CommentFormProps) {
   const [rating, setRating] = useState<number>(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
-    await fetch("/api/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, comment, rating, parentId }),
-    });
-    setSubmitting(false);
-    setSubmitted(true);
-    setName("");
-    setComment("");
-    setRating(0);
-    if (onSubmit) onSubmit();
+    setError("");
+    try {
+      const res = await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating, parentId }),
+      });
+      if (!res.ok) throw new Error("Failed to submit comment");
+      setSubmitted(true);
+      setName("");
+      setComment("");
+      setRating(0);
+      if (onSubmit) onSubmit();
+    } catch (err) {
+      setError("Failed to submit comment. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted && !parentId) {
@@ -402,27 +415,32 @@ function CommentForm({ parentId, onSubmit }: CommentFormProps) {
   }
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit} aria-label="Comment form">
       <StarRating rating={rating} setRating={setRating} />
       <input
         type="text"
         placeholder="Your name (optional)"
-        className="border rounded px-3 py-2"
+        className="border rounded px-3 py-2 bg-white dark:bg-[#232347] text-gray-900 dark:text-gray-100"
         value={name}
         onChange={e => setName(e.target.value)}
+        aria-label="Your name"
       />
       <textarea
         placeholder="Your comment..."
-        className="border rounded px-3 py-2 min-h-[80px]"
+        className="border rounded px-3 py-2 min-h-[80px] bg-white dark:bg-[#232347] text-gray-900 dark:text-gray-100"
         value={comment}
         onChange={e => setComment(e.target.value)}
         required
+        aria-label="Your comment"
       />
+      {error && <div className="text-red-600">{error}</div>}
       <button
         type="submit"
-        className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/80"
+        className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-lg font-bold shadow-md hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 flex items-center justify-center gap-2"
         disabled={submitting}
+        aria-busy={submitting}
       >
+        {submitting && <span className="animate-spin">⏳</span>}
         {submitting ? "Submitting..." : parentId ? "Reply" : "Submit"}
       </button>
     </form>
@@ -457,6 +475,15 @@ function StarRating({ rating, setRating }: StarRatingProps) {
   );
 }
 
+// Avatar helper
+function getAvatar(name: string) {
+  if (!name || name === 'Anonymous') return '👤';
+  // Use first letter or emoji if present
+  const first = name.trim()[0];
+  if (/\p{Emoji}/u.test(first)) return first;
+  return first.toUpperCase();
+}
+
 interface CommentListProps {
   comments: any[];
   onReply: () => void;
@@ -466,19 +493,24 @@ function CommentList({ comments, onReply }: CommentListProps) {
   return (
     <ul className="space-y-6">
       {comments.map((comment: any) => (
-        <li key={comment.id} className="border rounded p-4 bg-white/80 dark:bg-black/30">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-semibold">{comment.name}</span>
-            <StarRatingStatic rating={comment.rating} />
-            <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
-          </div>
-          <div className="mb-2 whitespace-pre-line">{comment.comment}</div>
-          <ReplySection parentId={comment.id} onReply={onReply} />
-          {comment.replies && comment.replies.length > 0 && (
-            <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-              <CommentList comments={comment.replies} onReply={onReply} />
+        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start">
+          <span className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-2xl font-bold shadow-md select-none">
+            {getAvatar(comment.name)}
+          </span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-semibold text-gray-900 dark:text-gray-100">{comment.name}</span>
+              <StarRatingStatic rating={comment.rating} />
+              <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
             </div>
-          )}
+            <div className="mb-2 whitespace-pre-line">{comment.comment}</div>
+            <ReplySection parentId={comment.id} onReply={onReply} />
+            {comment.replies && comment.replies.length > 0 && (
+              <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                <CommentList comments={comment.replies} onReply={onReply} />
+              </div>
+            )}
+          </div>
         </li>
       ))}
     </ul>
