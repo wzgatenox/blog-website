@@ -1,28 +1,18 @@
 [
   {
     "id": "1746513047503tzmfd97vjhj",
-    "name": "dsds",
-    "comment": "sdsd",
-    "rating": 4,
+    "name": "Anna",
+    "comment": "I love this post! I've always been fascinated by the meaning of dreams and this post really helped me understand the different perspectives on the topic. I especially liked the idea of dreams as fictional memories. It's so true that dreams can be meaningful even when they're made of arbitrary brain activity.",
+    "rating": 5,
     "parentId": null,
     "replies": [
       {
         "id": "1746513056742l65okdg3sr",
-        "name": "dsdf",
-        "comment": "dsfdf",
+        "name": "John",
+        "comment": "I agree with you, Anna. Dreams can be meaningful even when they're made of arbitrary brain activity. I also like the idea of dreams as a storytelling machine. It's so true that dreams can be meaningful even when they're made of arbitrary brain activity.",
         "rating": 5,
         "parentId": "1746513047503tzmfd97vjhj",
-        "replies": [
-          {
-            "id": "1746513147162z47bzw1in6l",
-            "name": "Anonymous",
-            "comment": "dd",
-            "rating": 1,
-            "parentId": "1746513056742l65okdg3sr",
-            "replies": [],
-            "createdAt": "2025-05-06T06:32:27.162Z"
-          }
-        ],
+        "replies": [],
         "createdAt": "2025-05-06T06:30:56.742Z"
       }
     ],
@@ -30,7 +20,7 @@
   },
   {
     "id": "1746513493256sjj7ieidr6h",
-    "name": "W",
+    "name": "Agnes",
     "comment": "great job\n",
     "rating": 5,
     "parentId": null,
