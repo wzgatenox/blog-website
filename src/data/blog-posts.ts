@@ -89,7 +89,9 @@ What do you think your dreams are telling you? Share your thoughts below!`,
       "Hill, Clara E., Joanne Knox, and Rachel E. Crook-Lyon. 'Dream Work in Therapy: Facilitating Exploration, Insight, and Action.' *American Journal of Psychotherapy*, vol. 67, no. 3, 2013, pp. 211–234.",
       "Hobson, J. Allan, and Robert W. McCarley. 'The Brain as a Dream-State Generator: An Activation-Synthesis Hypothesis of the Dream Process.' *American Journal of Psychiatry*, vol. 134, no. 12, 1977, pp. 1335–1348.",
       "Siclari, Francesca, et al. 'The Neural Dynamics of Dreaming.' *Nature Neuroscience*, vol. 25, 2022, pp. 106–114.",
-      "Windt, Jennifer M. *Dreaming: A Conceptual Framework for Philosophy of Mind and Empirical Research.* MIT Press, 2015."
+      "Windt, Jennifer M. *Dreaming: A Conceptual Framework for Philosophy of Mind and Empirical Research.* MIT Press, 2015.",
+      "TED-Ed. \"Why Do We Dream?\" *YouTube*, uploaded by TED-Ed, 8 Oct. 2013, www.youtube.com/watch?v=2W85Dwxx218.",
+      "OpenAI. \"AI-generated Illustrations Created with DALL·E 3.\" *ChatGPT*, OpenAI, 2025."
     ]
   }
 } 

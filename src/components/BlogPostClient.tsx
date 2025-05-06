@@ -6,6 +6,7 @@ import { TableOfContents, TocEntry } from "@/components/TableOfContents"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { AnimatedHeading } from "@/components/AnimatedHeading"
 import type { BlogPost as BlogPostType } from "@/data/blog-posts" // Import the type
+import ReactMarkdown from 'react-markdown' // Added import
 
 // Helper function (can be kept here or moved to a utils file)
 const slugify = (text: string): string => {
@@ -295,7 +296,12 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               if (block.type === 'heading') {
                 renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
               } else if (block.type === 'paragraph') {
-                renderedBlocks.push(<div key={index} className="leading-relaxed">{block.content}</div>);
+                // Use ReactMarkdown for paragraph content
+                renderedBlocks.push(
+                  <div key={index} className="leading-relaxed prose dark:prose-invert max-w-none">
+                    <ReactMarkdown>{block.content}</ReactMarkdown>
+                  </div>
+                );
               } else if (block.type === 'image') {
                 const floatClass = block.imageSide === 'left' ? 'float-left mr-6 mb-4' : 'float-right ml-6 mb-4';
                 renderedBlocks.push(
@@ -317,12 +323,12 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
 
         {/* Works Cited Section */}
         {post.worksCited && post.worksCited.length > 0 && (
-          <div id="works-cited" className="mt-12 border-t border-white/20 pt-8 clear-both">
+          <div id="works-cited" className="mt-12 border-t border-white/20 pt-8 clear-both prose dark:prose-invert max-w-none">
             <h2 className="text-xl font-semibold mb-3">Works Cited</h2> 
-            <ul className="space-y-1.5">
+            <ul className="space-y-1.5 list-none pl-0">
               {post.worksCited.map((citation, index) => (
                 <li key={index} className="text-xs text-muted-foreground">
-                  {citation}
+                  <ReactMarkdown components={{ p: React.Fragment }}>{citation}</ReactMarkdown>
                 </li>
               ))}
             </ul>
