@@ -390,20 +390,20 @@ function CommentList({ comments, onReply }: CommentListProps) {
   return (
     <ul className="space-y-6">
       {comments.map((comment: any) => (
-        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start">
-          <span className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-2xl font-bold shadow-md select-none">
+        <li key={comment.id} className="border rounded-2xl p-2 sm:p-4 bg-white/80 dark:bg-black/30 flex flex-col sm:flex-row gap-2 sm:gap-4 items-start overflow-hidden">
+          <span className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-0 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-xl sm:text-2xl font-bold shadow-md select-none flex-shrink-0">
             {getAvatar(comment.name)}
           </span>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mb-1">
+              <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
               <StarRatingStatic rating={comment.rating} />
-              <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">{new Date(comment.createdAt).toLocaleString()}</span>
             </div>
-            <div className="mb-2 whitespace-pre-line break-words">{comment.comment}</div>
+            <div className="text-sm sm:text-base mb-2 whitespace-pre-line break-words">{comment.comment}</div>
             <ReplySection parentId={comment.id} onReply={onReply} />
             {comment.replies && comment.replies.length > 0 && (
-              <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+              <div className="ml-0 sm:ml-6 mt-4 border-l-0 sm:border-l-2 border-gray-200 dark:border-gray-700 pl-0 sm:pl-4">
                 <CommentList comments={comment.replies} onReply={onReply} />
               </div>
             )}
@@ -422,7 +422,7 @@ function StarRatingStatic({ rating }: StarRatingStaticProps) {
   return (
     <span className="flex items-center">
       {[1, 2, 3, 4, 5].map(star => (
-        <span key={star} className={star <= rating ? "text-yellow-400 text-xl" : "text-gray-300 text-xl"}>★</span>
+        <span key={star} className={star <= rating ? "text-yellow-400 text-lg sm:text-xl" : "text-gray-300 text-lg sm:text-xl"}>★</span>
       ))}
     </span>
   );
@@ -443,7 +443,7 @@ function ReplySection({ parentId, onReply }: ReplySectionProps) {
         </div>
       ) : (
         <button
-          className="text-sm text-primary underline hover:no-underline"
+          className="text-xs sm:text-sm text-primary underline hover:no-underline"
           onClick={() => setShow(true)}
         >
           Reply
