@@ -69,7 +69,7 @@ Maybe that's why dreams matter—not because they always hold answers, but becau
 
 ## 🌙 Key Takeaways from the Dreamworld
 
-<div class="my-6 rounded-lg border border-blue-200 dark:border-blue-800/40 bg-blue-50/50 dark:bg-blue-900/20 p-4 md:p-6 not-prose text-sm">
+<div class="my-6 rounded-lg border border-blue-300 dark:border-blue-700 bg-blue-100 dark:bg-blue-900/60 p-4 md:p-6 not-prose text-sm">
   <p class="mb-4 text-gray-700 dark:text-gray-300">Unraveling the mystery of dreams involves peering through different lenses. Here's a quick recap of the main perspectives and what they suggest about the enigmatic world we visit each night:</p>
   <ol class="list-decimal list-outside space-y-3 pl-5 text-gray-700 dark:text-gray-300">
     <li><strong class="font-semibold text-gray-900 dark:text-gray-100">Freudian Lens:</strong> Freud believed dreams were deeply personal dispatches from our unconscious, brimming with our hidden fears, unfulfilled wishes, and unresolved emotional baggage.</li>
