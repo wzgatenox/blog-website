@@ -30,11 +30,11 @@ To make sense of all this, we'll look at three perspectives: Freud's theory of w
 ## 🧠 Freud's Theory: Dreams as Wish Fulfillment
 
 <div class="leading-relaxed clear-both">
-  <span class="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
+  <span class="block w-full max-w-[320px] mx-auto mb-6 rounded-lg overflow-hidden shadow-lg not-prose sm:inline-block sm:float-left sm:w-2/5 sm:max-w-[280px] sm:mr-6 sm:mb-4">
     <img src="/Freud.jpeg" alt="Portrait of Sigmund Freud" width="320" height="240" style="object-fit: contain; display: block;" loading="lazy" />
   </span>
 This belief shaped Freud's entire theory of dreams. In *The Interpretation of Dreams*, he argued that dreams are a form of wish fulfillment. Even when they seem random or strange, he believed they were expressing unconscious desires (Freud 10). A child who is denied something during the day might dream about getting it at night. According to Freud, that's not a coincidence—it's the mind trying to satisfy the wish in another way.
-  <span class="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
+  <span class="block w-full max-w-[320px] mx-auto mt-6 mb-6 rounded-lg overflow-hidden shadow-lg not-prose sm:inline-block sm:float-right sm:w-2/5 sm:max-w-[280px] sm:ml-6 sm:mb-4 sm:mt-0">
     <img src="/manifest-content.jpeg" alt="The layers of dream interpretation according to Freud" width="320" height="240" style="object-fit: contain; display: block;" loading="lazy" />
   </span>
 </div>

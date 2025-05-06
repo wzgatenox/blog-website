@@ -152,19 +152,50 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
 
 // Threaded comment box component
 function CommentBoxThreaded() {
-  const [comments, setComments] = useState<any[]>([]);
+  const [nestedComments, setNestedComments] = useState<any[]>([]); // For desktop tree view
+  const [flatComments, setFlatComments] = useState<any[]>([]);   // For mobile flat view
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
+  const [isMobile, setIsMobile] = useState(false); // State to track mobile view
+
+  // Effect to check for mobile view on mount and resize
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Using 768px as Tailwind's md breakpoint
+    };
+    checkIsMobile(); // Initial check
+    window.addEventListener('resize', checkIsMobile);
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
     fetch("/api/comments")
       .then(res => res.json())
-      .then(setComments)
-      .catch(() => setError("Failed to load comments."))
+      .then(data => {
+        setNestedComments(data); // Original nested data for desktop
+
+        // Create a flattened list for mobile display
+        const allCommentsForFlatList: any[] = [];
+        const flattenRepliesRecursively = (commentsToFlatten: any[]) => {
+          commentsToFlatten.forEach(comment => {
+            allCommentsForFlatList.push({ ...comment }); // Add comment to flat list
+            if (comment.replies && comment.replies.length > 0) {
+              flattenRepliesRecursively(comment.replies); // Recurse for replies
+            }
+          });
+        };
+        flattenRepliesRecursively(data);
+        setFlatComments(allCommentsForFlatList);
+      })
+      .catch(() => setError("Failed to load comments. Please try refreshing."))
       .finally(() => setLoading(false));
   }, [refresh]);
+
+  const commentsToRender = isMobile ? flatComments : nestedComments;
 
   return (
     <div>
@@ -174,10 +205,15 @@ function CommentBoxThreaded() {
           <div className="flex items-center gap-2 text-purple-700 dark:text-purple-200"><span className="animate-spin text-2xl">⏳</span> Loading comments...</div>
         ) : error ? (
           <div className="text-red-600">{error}</div>
-        ) : comments.length === 0 ? (
-          <div className="text-muted-foreground">No comments yet. Be the first to share your thoughts!</div>
+        ) : commentsToRender.length === 0 ? (
+          <div className="text-muted-foreground text-center py-4">No comments yet. Be the first to share your thoughts!</div>
         ) : (
-          <CommentList comments={comments} onReply={() => setRefresh(r => r + 1)} />
+          <CommentList 
+            comments={commentsToRender} 
+            onReply={() => setRefresh(r => r + 1)} 
+            isMobileView={isMobile}
+            depth={0} 
+          />
         )}
       </div>
     </div>
@@ -295,32 +331,67 @@ function getAvatar(name: string) {
 }
 
 interface CommentListProps {
-  comments: any[];
+  comments: any[]; // Will be flat for mobile, nested for desktop (top-level or replies)
   onReply: () => void;
+  isMobileView: boolean;
+  depth?: number; 
 }
 
-function CommentList({ comments, onReply }: CommentListProps) {
+function CommentList({ comments, onReply, isMobileView, depth = 0 }: CommentListProps) {
   return (
-    <ul className="space-y-6">
+    <ul className={`
+      space-y-4 
+      ${!isMobileView && depth > 0 ? 'pl-3 sm:pl-4 mt-3 border-l-2 border-purple-200 dark:border-purple-700/60' : 'space-y-5 sm:space-y-6'}
+    `}>
       {comments.map((comment: any) => (
-        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start">
-          <span className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-2xl font-bold shadow-md select-none">
-            {getAvatar(comment.name)}
-          </span>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
-              <StarRatingStatic rating={comment.rating} />
-              <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
-            </div>
-            <div className="mb-2 whitespace-pre-line break-words">{comment.comment}</div>
-            <ReplySection parentId={comment.id} onReply={onReply} />
-            {comment.replies && comment.replies.length > 0 && (
-              <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-                <CommentList comments={comment.replies} onReply={onReply} />
+        <li 
+          key={comment.id} 
+          className="p-3 sm:p-4 bg-white/70 dark:bg-black/30 rounded-lg shadow-md"
+        >
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <span 
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-700 dark:to-blue-800 flex items-center justify-center text-base sm:text-lg font-semibold text-white dark:text-purple-100 flex-shrink-0 mt-0.5 shadow-sm select-none"
+              aria-label={`${comment.name || 'User'}'s avatar`}
+            >
+              {getAvatar(comment.name || 'User')}
+            </span>
+            <div className="flex-grow">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-0.5">
+                <p className="font-semibold text-gray-800 dark:text-gray-100 text-sm">
+                  {comment.name || "Anonymous"}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                  {comment.rating > 0 && (
+                    <span className="ml-1.5 sm:ml-2 inline-flex items-center">
+                      <StarRatingStatic rating={comment.rating} />
+                    </span>
+                  )}
+                </p>
               </div>
-            )}
+              <p className="text-gray-700 dark:text-gray-300 mt-1 text-sm break-words leading-relaxed">
+                {comment.comment}
+              </p>
+              
+              {/* Reply button - only for DESKTOP view */}
+              {!isMobileView && (
+                <div className="mt-1.5">
+                  <ReplySection parentId={comment.id} onReply={onReply} />
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* Render replies for DESKTOP view (tree structure) */}
+          {/* For mobile view, replies are already part of the flat 'comments' list passed to this component, so no recursive call needed here. */}
+          {!isMobileView && comment.replies && comment.replies.length > 0 && (
+            <CommentList 
+              comments={comment.replies} 
+              onReply={onReply} 
+              isMobileView={false} // Always false for desktop recursive calls
+              depth={depth + 1} 
+            />
+          )}
         </li>
       ))}
     </ul>
