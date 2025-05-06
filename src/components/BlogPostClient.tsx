@@ -3,9 +3,7 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { TableOfContents, TocEntry } from "@/components/TableOfContents"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { AnimatedHeading } from "@/components/AnimatedHeading"
 import type { BlogPost as BlogPostType } from "@/data/blog-posts" // Import the type
 
@@ -28,6 +26,15 @@ interface BlogPostClientProps {
 // Renamed from BlogPostPageContent
 export function BlogPostClient({ post }: BlogPostClientProps) {
   const [isTocOpen, setIsTocOpen] = useState(false);
+
+  // Event listener for ToC hamburger click from Nav
+  useEffect(() => {
+    const handleOpenToc = () => setIsTocOpen(true);
+    document.addEventListener('openBlogPostToc', handleOpenToc);
+    return () => {
+      document.removeEventListener('openBlogPostToc', handleOpenToc);
+    };
+  }, []);
 
   // Process content for blocks AND generate ToC entries
   const contentBlocks: Array<{ 
@@ -74,24 +81,16 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
   // The entire JSX structure from the previous BlogPostPageContent
   return (
     <div className="relative container mx-auto flex flex-row gap-12 py-8 px-4">
-      {/* Mobile ToC Trigger Button */}
-      <div className="lg:hidden fixed top-5 right-4 z-50">
-        <Sheet open={isTocOpen} onOpenChange={setIsTocOpen}>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Open Table of Contents</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-3/4 sm:w-1/2 overflow-y-auto pt-10">
-            <TableOfContents 
-              entries={tocEntries} 
-              onLinkClick={() => setIsTocOpen(false)} 
-              hasWorksCited={post.worksCited && post.worksCited.length > 0} 
-            />
-          </SheetContent>
-        </Sheet>
-      </div>
+      {/* Mobile ToC Sheet (triggered by event from Nav.tsx) */}
+      <Sheet open={isTocOpen} onOpenChange={setIsTocOpen}>
+        <SheetContent side="right" className="w-3/4 sm:w-1/2 lg:w-1/3 overflow-y-auto pt-10">
+          <TableOfContents 
+            entries={tocEntries} 
+            onLinkClick={() => setIsTocOpen(false)}
+            hasWorksCited={post.worksCited && post.worksCited.length > 0} 
+          />
+        </SheetContent>
+      </Sheet>
 
       {/* Desktop Table of Contents */}
       <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-4">
@@ -101,8 +100,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
         />
       </aside>
 
-      {/* Article Content */}
-      <article className="prose prose-lg prose-gray dark:prose-invert max-w-none lg:max-w-4xl flex-grow">
+      {/* Article Content - Added break-words */}
+      <article className="prose prose-lg prose-gray dark:prose-invert w-full lg:max-w-4xl flex-grow break-words">
         {/* Header Section */}
         <h1 className="text-6xl font-bold tracking-tight mb-6 leading-tight gradient-text">
           {post.title}
@@ -117,12 +116,12 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           <span>•</span>
           <span>{post.author}</span>
         </div>
-        <div className="relative w-full max-w-3xl mx-auto my-8 rounded-2xl overflow-hidden shadow-lg not-prose h-[60vh] min-h-[320px] top-[10vh]">
+        <div className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
           <Image 
             src="/purple-brain.jpeg" 
             alt={`${post.title} image`} 
-            fill
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            fill 
+            style={{ objectFit: "cover" }}
             priority
           />
         </div>
@@ -169,21 +168,23 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               // Insert YouTube video as float-right at start of first paragraph after heading ONLY
               if (afterDreamsVideo && !dreamsVideoInserted && block.type === 'paragraph') {
                 renderedBlocks.push(
-                  <p key={index} className="leading-relaxed">
-                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[400px]">
-                      <iframe
-                        width="400"
-                        height="225"
-                        src="https://www.youtube.com/embed/2W85Dwxx218"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                        style={{ display: "block" }}
-                      ></iframe>
+                  <div key={index} className="leading-relaxed clear-both">
+                    {/* Responsive YouTube video - further increased size */}
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[560px] sm:w-3/4 md:w-2/3 lg:w-1/2">
+                      <div className="aspect-w-16 aspect-h-9">
+                        <iframe
+                          className="w-full h-full"
+                          src="https://www.youtube.com/embed/2W85Dwxx218"
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          style={{ display: "block" }}
+                        ></iframe>
+                      </div>
                     </span>
                     {block.content}
-                  </p>
+                  </div>
                 );
                 dreamsVideoInserted = true;
                 afterDreamsVideo = false;
@@ -202,8 +203,9 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               // Insert Freud image at the second-to-last paragraph
               if (block.type === 'paragraph' && inFreudSection && index === secondToLastFreudParagraphIndex && post.freudImageUrl) {
                 renderedBlocks.push(
-                  <p key={index} className="leading-relaxed">
-                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[320px]">
+                  <div key={index} className="leading-relaxed clear-both">
+                    {/* Responsive Freud image */}
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
                       <Image
                         src={post.freudImageUrl}
                         alt="The layers of dream interpretation according to Freud"
@@ -213,7 +215,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                       />
                     </span>
                     {block.content}
-                  </p>
+                  </div>
                 );
                 continue;
               }
@@ -231,7 +233,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                 renderedBlocks.push(
                   <React.Fragment key={index}>
                     <AnimatedHeading id={block.id} text={block.content} />
-                    <div className="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose">
+                    {/* Responsive Neuroscience image */}
+                    <div className="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[600px] sm:w-2/3">
                       <Image
                         src={post.neuroscienceImageUrl}
                         alt="The brain's activity during dreaming"
@@ -261,8 +264,9 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               // Insert Windt image as float-right at start of first paragraph after heading ONLY
               if (windtSectionStarted && !windtImageInserted && post.windtImageUrl && block.type === 'paragraph') {
                 renderedBlocks.push(
-                  <p key={index} className="leading-relaxed">
-                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[600px]">
+                  <div key={index} className="leading-relaxed clear-both">
+                    {/* Responsive Windt image */}
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[600px] sm:w-2/3">
                       <Image
                         src={post.windtImageUrl}
                         alt="The intersection of memory and imagination in dreams"
@@ -272,7 +276,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
                       />
                     </span>
                     {block.content}
-                  </p>
+                  </div>
                 );
                 windtImageInserted = true;
                 windtSectionStarted = false;
@@ -282,7 +286,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               // First paragraph after Windt image gets clear-both
               if (afterWindtImage && block.type === 'paragraph') {
                 renderedBlocks.push(
-                  <p key={index} className="leading-relaxed clear-both">{block.content}</p>
+                  <div key={index} className="leading-relaxed clear-both">{block.content}</div>
                 );
                 afterWindtImage = false;
                 continue;
@@ -291,7 +295,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               if (block.type === 'heading') {
                 renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
               } else if (block.type === 'paragraph') {
-                renderedBlocks.push(<p key={index} className="leading-relaxed">{block.content}</p>);
+                renderedBlocks.push(<div key={index} className="leading-relaxed">{block.content}</div>);
               } else if (block.type === 'image') {
                 const floatClass = block.imageSide === 'left' ? 'float-left mr-6 mb-4' : 'float-right ml-6 mb-4';
                 renderedBlocks.push(
@@ -325,8 +329,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           </div>
         )}
 
-        {/* Enhanced Comment Section */}
-        <div className="mt-12 border-t border-white/20 pt-8 max-w-2xl mx-auto bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-purple-900/40 dark:to-blue-900/60 dark:bg-[#232347]/80 border-2 border-purple-300 dark:border-purple-700 rounded-3xl shadow-2xl p-10 transition-all duration-300 hover:shadow-purple-300/40 text-gray-900 dark:text-gray-100">
+        {/* Enhanced Comment Section - Added w-full and responsive padding */}
+        <div className="mt-12 border-t border-white/20 pt-8 w-full max-w-2xl mx-auto bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-purple-900/40 dark:to-blue-900/60 dark:bg-[#232347]/80 border-2 border-purple-300 dark:border-purple-700 rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 transition-all duration-300 hover:shadow-purple-300/40 text-gray-900 dark:text-gray-100">
           <div className="flex flex-col items-center mb-4">
             <span className="text-4xl mb-2">💬</span>
             <h2 className="text-4xl font-extrabold mb-2 text-purple-900 dark:text-purple-200 text-center drop-shadow">Share Your Thoughts</h2>
@@ -499,11 +503,11 @@ function CommentList({ comments, onReply }: CommentListProps) {
           </span>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-gray-900 dark:text-gray-100">{comment.name}</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
               <StarRatingStatic rating={comment.rating} />
               <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
             </div>
-            <div className="mb-2 whitespace-pre-line">{comment.comment}</div>
+            <div className="mb-2 whitespace-pre-line break-words">{comment.comment}</div>
             <ReplySection parentId={comment.id} onReply={onReply} />
             {comment.replies && comment.replies.length > 0 && (
               <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">

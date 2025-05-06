@@ -86,6 +86,7 @@
   }
 
   html {
+    @apply w-full;
     scroll-behavior: smooth; /* Enable smooth scrolling */
     scroll-padding-top: 5rem; /* Add padding to top when scrolling to ID, adjust as needed */
   }
@@ -96,7 +97,7 @@
     @apply border-[hsl(var(--border))];
   }
   body {
-    @apply bg-background text-foreground; /* This should be sufficient */
+    @apply bg-background text-foreground w-full;
   }
 }
 

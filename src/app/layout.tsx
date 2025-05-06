@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`} suppressHydrationWarning={true}>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning={true}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -31,14 +31,14 @@ export default function RootLayout({
              <StarryBackground />
           </div>
           
-          <div className="relative z-10 flex flex-col min-h-screen bg-transparent">
+          <div className="relative z-10 flex flex-col min-h-screen bg-transparent w-full">
             <Nav />
             <main className="container mx-auto px-4 py-8 flex-grow">
               {children}
             </main>
 
-            <footer className="py-8 px-4 md:px-8 md:py-0 border-t animate-gradient bg-[linear-gradient(90deg,#7C3AED_0%,#EC4899_25%,#3B82F6_50%,#14B8A6_75%,#7C3AED_100%)]">
-              <div className="container flex flex-col items-center justify-center gap-4 md:h-16 md:flex-row md:justify-between">
+            <footer className="py-8 md:py-0 border-t animate-gradient bg-[linear-gradient(90deg,#7C3AED_0%,#EC4899_25%,#3B82F6_50%,#14B8A6_75%,#7C3AED_100%)] w-full">
+              <div className="container w-full mx-auto px-4 flex flex-col items-center justify-center gap-4 md:h-16 md:flex-row md:justify-between">
                 <p className="text-center text-base leading-loose text-white md:text-left">
                   © {new Date().getFullYear()} Maia Zatorska. All rights reserved.
                 </p>
