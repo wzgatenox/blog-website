@@ -390,15 +390,15 @@ function CommentList({ comments, onReply }: CommentListProps) {
   return (
     <ul className="space-y-6">
       {comments.map((comment: any) => (
-        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start overflow-hidden">
+        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start">
           <span className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-2xl font-bold shadow-md select-none">
             {getAvatar(comment.name)}
           </span>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mb-1">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
               <span className="font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
               <StarRatingStatic rating={comment.rating} />
-              <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleString()}</span>
+              <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
             </div>
             <div className="mb-2 whitespace-pre-line break-words">{comment.comment}</div>
             <ReplySection parentId={comment.id} onReply={onReply} />
