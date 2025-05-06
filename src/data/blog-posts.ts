@@ -14,7 +14,7 @@ export interface BlogPost {
 export const blogPosts: Record<string, BlogPost> = {
   "what-if-your-dreams-are-lying": {
     title: "What If Your Dreams Are Lying to You?",
-    subtitle: "Exploring the complex relationship between dreams, meaning, and neuroscience",
+    subtitle: "The complex relationship between dreams, meaning, and neuroscience",
     imageUrl: "/purple-brain.jpeg",
     freudImageUrl: "/manifest-content.jpeg",
     neuroscienceImageUrl: "/ff34521f-daab-42ac-8889-1708d71fa2e8.jpeg",
@@ -27,7 +27,7 @@ However, with neuroscience evolving many grew skeptical of Freud's theory and ne
 
 To make sense of all this, we'll look at three perspectives: Freud's theory of wish fulfillment, Hobson and McCarley's brain-based model, and Windt's idea of dreams as fictional remembering. They offer very different answers. But they share one thing in common: that meaning comes not from the dream alone, but from how we choose to see it.
 
-## Freud's Theory: Dreams as Wish Fulfillment
+## 🧠 Freud's Theory: Dreams as Wish Fulfillment
 
 In the early 1900s, Sigmund Freud introduced a new way of thinking about dreams. He wasn't a scientist in the modern sense, but a doctor and the founder of psychoanalysis—a method based more on interpretation than experiment.
 
@@ -40,7 +40,7 @@ To uncover these hidden meanings, he developed a method called psychoanalysis. I
 
 Freud's theory left a mark on how we think about the mind. Even today, the idea that dreams can reveal hidden truths still holds weight in therapy and culture. But that idea didn't go unchallenged. As neuroscience advanced, so did skepticism. Some researchers looked at the dreaming brain and saw something entirely different—not hidden meaning, but spontaneous activity.
 
-## Neuroscience's View: Dreams as Random Brain Activity
+## 💡 Neuroscience's View: Dreams as Random Brain Activity
 
 What Freud saw as deeply symbolic, neuroscientists Allan Hobson and Robert McCarley saw as something far simpler and far more random. In 1977, they introduced the activation-synthesis model, arguing that dreams happen when the brainstem sends random signals during REM sleep. The brain that is naturally inclined to find patterns pieces the noise into something that feel like a story (Hobson and McCarley 1977).
 
@@ -48,12 +48,12 @@ It's a little like when we see faces in clouds or think we hear our name in a cr
 
 This theory directly challenges Freud. It says there's no hidden wish, no deep meaning. Just a very active brain doing what it always does: building stories. That kind of scientific skepticism may feel less romantic, but it forced us to reconsider a prevalent assumption: that every strange, vivid image in our dreams must point to something deeper. Or perhaps dreams are just what happens when the brain improvises with scraps of memory, emotion, and noise. But maybe it's not a choice between meaning and randomness. Maybe dreams are shaped by both: the messy signals in our brain and the emotional traces we carry with us.
 
-## A Middle Ground: Dreams as Fictional Remembering
+## 💭 A Middle Ground: Dreams as Fictional Remembering
 
 
 A cognitive scientist, Jennifer Windt offers a theory that sits between Freud and Hobson. She sees dreams not as hidden messages or pure randomness but as something else entirely: fictional memories. In her view, dreams are stories our minds build while we sleep, blending imagination with bits of real experience (Windt 2015). Windt's idea helps explain why dreams feel meaningful, even when they're made of arbitrary brain activity. Her research suggests that dreams can have emotional weight, but that doesn't always mean they're revealing deep truths. They're more like the brain's storytelling machine working overnight. This theory connects the dots between Freud and Hobson and McCarley. It accepts that dreams are constructed, but also that they can be shaped by what's going on in your life and your mind—even if they aren't direct messages.
 
-## Interpreting Dreams: Meaning or Making It Up?
+## 💬 Interpreting Dreams: Meaning or Making It Up?
 
 So, should we try to interpret our dreams? Freud would say yes—absolutely. Hobson and McCarley would say it's pointless. Windt would probably say: it depends. Interestingly, some recent research suggests that even if dreams aren't messages, interpreting them can still be helpful. For example, a study by Edwards et al. found that reflecting on dream content helped people better understand their own thoughts and emotions (Edwards et al. 2013).
 
@@ -61,11 +61,13 @@ Personally, I find this idea the most helpful. I've had dreams that felt complet
 
 That's the real power of dreams. Not that they hold secret truths, but that they create a space where we can uncover feelings we haven't faced directly or have faced already. Even if the dream started from random brain activity, the way we react to it can still tell us something valuable about ourselves.
 
-## What Dreams Really Tell Us
+## 🔮 What Dreams Really Tell Us
 
 In the end, it seems that dreams aren't fully true—or completely false. They're shaped by both the brain and the mind—and what they reveal depends more on us than on the dream itself. Dreams are strange, emotional, and sometimes meaningful—but not always. Some come from the subconscious, some from brain activity, and others are simply stories we tell ourselves in the dark. What we do know is that dreams are shaped by both biology and psychology—and they reveal how deeply we're wired to search for meaning, even when things don't make sense.
 
-Maybe that's why dreams matter—not because they always hold answers, but because they invite us to keep asking questions we might not ask when we're awake. So the next time you wake up from a dream, wondering what it meant—maybe the question isn't what it meant at all. Maybe the real question is: what did it awaken in you?`,
+Maybe that's why dreams matter—not because they always hold answers, but because they invite us to keep asking questions we might not ask when we're awake. So the next time you wake up from a dream, wondering what it meant—maybe the question isn't what it meant at all. Maybe the real question is: what did it awaken in you?
+
+What do you think your dreams are telling you? Share your thoughts below!`,
     date: "2024-03-20",
     author: "Maia Zatorska",
     worksCited: [
