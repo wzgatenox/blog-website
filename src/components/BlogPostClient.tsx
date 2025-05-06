@@ -11,6 +11,7 @@ import rehypeRaw from 'rehype-raw' // Import rehype-raw
 
 // Helper function (can be kept here or moved to a utils file)
 const slugify = (text: string): string => {
+  if (typeof text !== 'string') return '' 
   return text
     .toLowerCase()
     .replace(/\s+/g, '-')
@@ -25,16 +26,6 @@ interface BlogPostClientProps {
   post: BlogPostType;
 }
 
-// Define block types including 'html'
-interface ContentBlock {
-    type: 'heading' | 'paragraph' | 'image' | 'html'; 
-    content: string; 
-    imageSide?: 'left' | 'right';
-    alt?: string; 
-    id?: string;
-}
-
-// Renamed from BlogPostPageContent
 export function BlogPostClient({ post }: BlogPostClientProps) {
   const [isTocOpen, setIsTocOpen] = useState(false);
 
@@ -47,65 +38,22 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
     };
   }, []);
 
-  // --- Updated Content Splitting Logic ---
-  const contentBlocks: ContentBlock[] = [];
+  // --- Generate ToC Entries Only --- 
   const tocEntries: TocEntry[] = [];
-  let nextImage: { src: string; alt: string; side: 'left' | 'right' } | null = null;
-
   if (post.subtitle) {
     tocEntries.push({ id: 'subtitle', text: post.subtitle });
   }
-
-  let currentHtmlBlock = '';
-  let inHtmlBlock = false;
-
-  post.content.split('\n').forEach(line => {
-    // Detect start of the specific HTML block we want to treat differently
-    if (line.trim().startsWith('<div class="my-6 rounded-lg')) {
-      inHtmlBlock = true;
-      currentHtmlBlock = line + '\n';
-    } 
-    // If we are inside that HTML block, keep appending lines
-    else if (inHtmlBlock) {
-      currentHtmlBlock += line + '\n';
-      // Detect the end of the block
-      if (line.trim() === '</div>') {
-        contentBlocks.push({ type: 'html', content: currentHtmlBlock.trim() });
-        currentHtmlBlock = '';
-        inHtmlBlock = false;
+  const headingRegex = /^##\s+(.*)/gm;
+  let match;
+  while ((match = headingRegex.exec(post.content)) !== null) {
+      const headingText = match[1].trim();
+      if (headingText) { 
+        const headingId = slugify(headingText);
+        tocEntries.push({ id: headingId, text: headingText });
       }
-    } 
-    // Handle headings (outside the HTML block)
-    else if (line.startsWith('##')) {
-      const headingText = line.substring(2).trim();
-      const headingId = slugify(headingText);
-      contentBlocks.push({ type: 'heading', content: headingText, id: headingId });
-      tocEntries.push({ id: headingId, text: headingText });
-      // Reset nextImage when a new section starts
-      nextImage = null; 
-      // Simplified image logic based on original component
-      if (headingText.toLowerCase().includes('freud')) {
-        nextImage = { src: '/Freud.jpeg', alt: 'Sigmund Freud', side: 'left' };
-      } else if (headingText.toLowerCase().includes('neuroscience')) { // Changed from 'science says' for clarity
-        nextImage = { src: '/synthesis-model.jpeg', alt: 'Activation-Synthesis Model Diagram', side: 'right' };
-      }
-    } 
-    // Handle paragraphs and potential images (outside the HTML block)
-    else if (line.trim() !== '') {
-      if (nextImage) {
-        // Find the correct way to add image blocks if needed, current logic seems simplified
-        // Assuming paragraph comes after potential image setup
-        contentBlocks.push({ type: 'paragraph', content: line }); 
-        // Reset nextImage? Might need adjustment based on desired image placement logic.
-        // nextImage = null; 
-      } else {
-        contentBlocks.push({ type: 'paragraph', content: line });
-      }
-    }
-  });
-  // --- End Updated Content Splitting Logic ---
+  }
+  // --- End ToC Generation ---
 
-  // The entire JSX structure from the previous BlogPostPageContent
   return (
     <div className="relative container mx-auto flex flex-row gap-12 py-8 px-4">
       {/* Mobile ToC Sheet (triggered by event from Nav.tsx) */}
@@ -127,7 +75,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
         />
       </aside>
 
-      {/* Article Content - Added break-words */}
+      {/* Article Content - Apply prose styling here, render entire content with ReactMarkdown */}
       <article className="prose prose-lg prose-gray dark:prose-invert w-full lg:max-w-4xl flex-grow break-words">
         {/* Header Section */}
         <h1 className="text-6xl font-bold tracking-tight mb-6 leading-tight gradient-text">
@@ -153,68 +101,33 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           />
         </div>
 
-        {/* --- Updated Block Rendering Logic --- */}
-        <div className="mt-8 space-y-6 clear-both">
-          {(() => {
-            let inFreudSection = false;
-            let lastFreudParagraphIndex = -1;
-            let secondToLastFreudParagraphIndex = -1;
-            // First, find the last and second-to-last paragraph index in the Freud section
-            for (let i = 0; i < contentBlocks.length; i++) {
-              const block = contentBlocks[i];
-              if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
-                inFreudSection = true;
-              } else if (block.type === 'heading' && !block.content.toLowerCase().includes('freud') && inFreudSection) {
-                inFreudSection = false;
-              } else if (block.type === 'paragraph' && inFreudSection) {
-                secondToLastFreudParagraphIndex = lastFreudParagraphIndex;
-                lastFreudParagraphIndex = i;
+        {/* Render ENTIRE post content using ReactMarkdown with rehype-raw and component mapping for h2 */}
+        <ReactMarkdown 
+          rehypePlugins={[rehypeRaw]}
+          components={{
+            h2: ({node, ...props}) => {
+              let headingText = '';
+              if (node && node.children) {
+                 const textNode = node.children.find(child => child.type === 'text');
+                 if (textNode && 'value' in textNode) {
+                    headingText = textNode.value;
+                 }
               }
+              const id = slugify(headingText);
+              return <AnimatedHeading id={id} text={headingText} />;
             }
-            inFreudSection = false;
-            let justEndedFreudSection = false;
-            let afterWindtImage = false;
-            let windtImageInserted = false;
-            let windtSectionStarted = false;
-            let afterDreamsVideo = false;
-            let dreamsVideoInserted = false;
-            const renderedBlocks = [];
-            for (let index = 0; index < contentBlocks.length; index++) {
-              const block = contentBlocks[index];
+          }}
+        >
+          {post.content}
+        </ReactMarkdown>
 
-              if (block.type === 'heading') {
-                 renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
-              } 
-              else if (block.type === 'paragraph') {
-                 // Render normal paragraphs using ReactMarkdown (no raw HTML needed here typically)
-                 renderedBlocks.push(
-                   <div key={index} className="leading-relaxed prose dark:prose-invert max-w-none">
-                     <ReactMarkdown>{block.content}</ReactMarkdown>
-                   </div>
-                 );
-              } 
-              else if (block.type === 'html') {
-                 // Render the captured HTML block using ReactMarkdown with rehype-raw
-                 renderedBlocks.push(
-                   <ReactMarkdown key={index} rehypePlugins={[rehypeRaw]}>{block.content}</ReactMarkdown>
-                 );
-              } 
-              // Add logic for 'image' type blocks if your splitting logic creates them
-              // else if (block.type === 'image') { ... }
-            }
-            return renderedBlocks;
-          })()}
-        </div>
-        {/* --- End Updated Block Rendering Logic --- */}
-
-        {/* Works Cited Section */}
+        {/* Works Cited Section - Rendered AFTER main content */}
         {post.worksCited && post.worksCited.length > 0 && (
           <div id="works-cited" className="mt-12 border-t border-white/20 pt-8 clear-both prose dark:prose-invert max-w-none">
             <h2 className="text-xl font-semibold mb-3">Works Cited</h2> 
             <ul className="space-y-1.5 list-none pl-0">
               {post.worksCited.map((citation, index) => (
                 <li key={index} className="text-xs text-muted-foreground">
-                  {/* Pass rehypeRaw here too for safety if citations might contain HTML */}
                   <ReactMarkdown components={{ p: React.Fragment }} rehypePlugins={[rehypeRaw]}>{citation}</ReactMarkdown>
                 </li>
               ))}
@@ -239,19 +152,50 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
 
 // Threaded comment box component
 function CommentBoxThreaded() {
-  const [comments, setComments] = useState<any[]>([]);
+  const [nestedComments, setNestedComments] = useState<any[]>([]); // For desktop tree view
+  const [flatComments, setFlatComments] = useState<any[]>([]);   // For mobile flat view
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
+  const [isMobile, setIsMobile] = useState(false); // State to track mobile view
+
+  // Effect to check for mobile view on mount and resize
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Using 768px as Tailwind's md breakpoint
+    };
+    checkIsMobile(); // Initial check
+    window.addEventListener('resize', checkIsMobile);
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
     fetch("/api/comments")
       .then(res => res.json())
-      .then(setComments)
-      .catch(() => setError("Failed to load comments."))
+      .then(data => {
+        setNestedComments(data); // Original nested data for desktop
+
+        // Create a flattened list for mobile display
+        const allCommentsForFlatList: any[] = [];
+        const flattenRepliesRecursively = (commentsToFlatten: any[]) => {
+          commentsToFlatten.forEach(comment => {
+            allCommentsForFlatList.push({ ...comment }); // Add comment to flat list
+            if (comment.replies && comment.replies.length > 0) {
+              flattenRepliesRecursively(comment.replies); // Recurse for replies
+            }
+          });
+        };
+        flattenRepliesRecursively(data);
+        setFlatComments(allCommentsForFlatList);
+      })
+      .catch(() => setError("Failed to load comments. Please try refreshing."))
       .finally(() => setLoading(false));
   }, [refresh]);
+
+  const commentsToRender = isMobile ? flatComments : nestedComments;
 
   return (
     <div>
@@ -261,10 +205,15 @@ function CommentBoxThreaded() {
           <div className="flex items-center gap-2 text-purple-700 dark:text-purple-200"><span className="animate-spin text-2xl">⏳</span> Loading comments...</div>
         ) : error ? (
           <div className="text-red-600">{error}</div>
-        ) : comments.length === 0 ? (
-          <div className="text-muted-foreground">No comments yet. Be the first to share your thoughts!</div>
+        ) : commentsToRender.length === 0 ? (
+          <div className="text-muted-foreground text-center py-4">No comments yet. Be the first to share your thoughts!</div>
         ) : (
-          <CommentList comments={comments} onReply={() => setRefresh(r => r + 1)} />
+          <CommentList 
+            comments={commentsToRender} 
+            onReply={() => setRefresh(r => r + 1)} 
+            isMobileView={isMobile}
+            depth={0} 
+          />
         )}
       </div>
     </div>
@@ -382,32 +331,67 @@ function getAvatar(name: string) {
 }
 
 interface CommentListProps {
-  comments: any[];
+  comments: any[]; // Will be flat for mobile, nested for desktop (top-level or replies)
   onReply: () => void;
+  isMobileView: boolean;
+  depth?: number; 
 }
 
-function CommentList({ comments, onReply }: CommentListProps) {
+function CommentList({ comments, onReply, isMobileView, depth = 0 }: CommentListProps) {
   return (
-    <ul className="space-y-6">
+    <ul className={`
+      space-y-4 
+      ${!isMobileView && depth > 0 ? 'pl-3 sm:pl-4 mt-3 border-l-2 border-purple-200 dark:border-purple-700/60' : 'space-y-5 sm:space-y-6'}
+    `}>
       {comments.map((comment: any) => (
-        <li key={comment.id} className="border rounded-2xl p-4 bg-white/80 dark:bg-black/30 flex gap-4 items-start">
-          <span className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-800 dark:to-blue-900 flex items-center justify-center text-2xl font-bold shadow-md select-none">
-            {getAvatar(comment.name)}
-          </span>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="font-semibold text-gray-900 dark:text-gray-100 break-words">{comment.name}</span>
-              <StarRatingStatic rating={comment.rating} />
-              <span className="text-xs text-muted-foreground ml-auto">{new Date(comment.createdAt).toLocaleString()}</span>
-            </div>
-            <div className="mb-2 whitespace-pre-line break-words">{comment.comment}</div>
-            <ReplySection parentId={comment.id} onReply={onReply} />
-            {comment.replies && comment.replies.length > 0 && (
-              <div className="ml-6 mt-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-                <CommentList comments={comment.replies} onReply={onReply} />
+        <li 
+          key={comment.id} 
+          className="p-3 sm:p-4 bg-white/70 dark:bg-black/30 rounded-lg shadow-md"
+        >
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <span 
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-700 dark:to-blue-800 flex items-center justify-center text-base sm:text-lg font-semibold text-white dark:text-purple-100 flex-shrink-0 mt-0.5 shadow-sm select-none"
+              aria-label={`${comment.name || 'User'}'s avatar`}
+            >
+              {getAvatar(comment.name || 'User')}
+            </span>
+            <div className="flex-grow">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-0.5">
+                <p className="font-semibold text-gray-800 dark:text-gray-100 text-sm">
+                  {comment.name || "Anonymous"}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                  {comment.rating > 0 && (
+                    <span className="ml-1.5 sm:ml-2 inline-flex items-center">
+                      <StarRatingStatic rating={comment.rating} />
+                    </span>
+                  )}
+                </p>
               </div>
-            )}
+              <p className="text-gray-700 dark:text-gray-300 mt-1 text-sm break-words leading-relaxed">
+                {comment.comment}
+              </p>
+              
+              {/* Reply button - only for DESKTOP view */}
+              {!isMobileView && (
+                <div className="mt-1.5">
+                  <ReplySection parentId={comment.id} onReply={onReply} />
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* Render replies for DESKTOP view (tree structure) */}
+          {/* For mobile view, replies are already part of the flat 'comments' list passed to this component, so no recursive call needed here. */}
+          {!isMobileView && comment.replies && comment.replies.length > 0 && (
+            <CommentList 
+              comments={comment.replies} 
+              onReply={onReply} 
+              isMobileView={false} // Always false for desktop recursive calls
+              depth={depth + 1} 
+            />
+          )}
         </li>
       ))}
     </ul>
