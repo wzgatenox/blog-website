@@ -31,16 +31,26 @@ To make sense of all this, we'll look at three perspectives: Freud's theory of w
 
 In the early 1900s, Sigmund Freud introduced a new way of thinking about dreams. He wasn't a scientist in the modern sense, but a doctor and the founder of psychoanalysis—a method based more on interpretation than experiment.
 
-
 Freud believed that every dream had two layers. The remembered part was called the manifest content—the surface-level story we recall in the morning. Beneath that was the latent content—the deeper, hidden meaning connected to our unconscious thoughts. According to him, dream analysis helps us move from the surface to what the dream is really expressing. Even today, some therapists still use dream interpretation to help people explore feelings they haven't fully processed (Hill, Knox, and Crook-Lyon).
 
+<div class="leading-relaxed clear-both">
+  <span class="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
+    <img src="/manifest-content.jpeg" alt="The layers of dream interpretation according to Freud" width="320" height="240" style="object-fit: contain; display: block;" loading="lazy" />
+  </span>
 This belief shaped Freud's entire theory of dreams. In *The Interpretation of Dreams*, he argued that dreams are a form of wish fulfillment. Even when they seem random or strange, he believed they were expressing unconscious desires (Freud 10). A child who is denied something during the day might dream about getting it at night. According to Freud, that's not a coincidence—it's the mind trying to satisfy the wish in another way.
+</div>
 
 To uncover these hidden meanings, he developed a method called psychoanalysis. It involved breaking the dream into small parts and asking the dreamer to say whatever came to mind; no matter how strange or unrelated it seemed. Freud often found surprising emotional links through this process. He even applied it to his own dreams. In one of them, he connected a dinner scene, a compliment about his eyes, and the serving of spinach to deeper feelings about guilt, love, debt, and past emotions (Freud 7). What looked like nonsense turned out to be a reflection of unresolved internal conflicts—and this is exactly what Freud believed dreams were: layered, emotional puzzles waiting to be understood.
 
 Freud's theory left a mark on how we think about the mind. Even today, the idea that dreams can reveal hidden truths still holds weight in therapy and culture. But that idea didn't go unchallenged. As neuroscience advanced, so did skepticism. Some researchers looked at the dreaming brain and saw something entirely different—not hidden meaning, but spontaneous activity.
 
+<div class="clear-both"></div> {/* Clear float before next section */}
+
 ## 💡 Neuroscience's View: Dreams as Random Brain Activity
+
+<div class="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[600px] sm:w-2/3">
+  <img src="/ff34521f-daab-42ac-8889-1708d71fa2e8.jpeg" alt="The brain's activity during dreaming" width="600" height="360" style="object-fit: contain; display: block;" loading="lazy" />
+</div>
 
 What Freud saw as deeply symbolic, neuroscientists Allan Hobson and Robert McCarley saw as something far simpler and far more random. In 1977, they introduced the activation-synthesis model, arguing that dreams happen when the brainstem sends random signals during REM sleep. The brain that is naturally inclined to find patterns pieces the noise into something that feel like a story (Hobson and McCarley 1977).
 
@@ -48,10 +58,18 @@ It's a little like when we see faces in clouds or think we hear our name in a cr
 
 This theory directly challenges Freud. It says there's no hidden wish, no deep meaning. Just a very active brain doing what it always does: building stories. That kind of scientific skepticism may feel less romantic, but it forced us to reconsider a prevalent assumption: that every strange, vivid image in our dreams must point to something deeper. Or perhaps dreams are just what happens when the brain improvises with scraps of memory, emotion, and noise. But maybe it's not a choice between meaning and randomness. Maybe dreams are shaped by both: the messy signals in our brain and the emotional traces we carry with us.
 
+<div class="clear-both"></div> {/* Clear float before next section */}
+
 ## 💭 A Middle Ground: Dreams as Fictional Remembering
 
-
+<div class="leading-relaxed clear-both">
+  <span class="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[600px] sm:w-2/3">
+    <img src="/2.jpeg" alt="The intersection of memory and imagination in dreams" width="600" height="360" style="object-fit: contain; display: block;" loading="lazy" />
+  </span>
 A cognitive scientist, Jennifer Windt offers a theory that sits between Freud and Hobson. She sees dreams not as hidden messages or pure randomness but as something else entirely: fictional memories. In her view, dreams are stories our minds build while we sleep, blending imagination with bits of real experience (Windt 2015). Windt's idea helps explain why dreams feel meaningful, even when they're made of arbitrary brain activity. Her research suggests that dreams can have emotional weight, but that doesn't always mean they're revealing deep truths. They're more like the brain's storytelling machine working overnight. This theory connects the dots between Freud and Hobson and McCarley. It accepts that dreams are constructed, but also that they can be shaped by what's going on in your life and your mind—even if they aren't direct messages.
+</div>
+
+<div class="clear-both"></div>
 
 ## 💬 Interpreting Dreams: Meaning or Making It Up?
 
@@ -61,23 +79,33 @@ Personally, I find this idea the most helpful. I've had dreams that felt complet
 
 That's the real power of dreams. Not that they hold secret truths, but that they create a space where we can uncover feelings we haven't faced directly or have faced already. Even if the dream started from random brain activity, the way we react to it can still tell us something valuable about ourselves.
 
+<div class="clear-both"></div> {/* Clear float before next section */}
+
 ## 🔮 So, What Dreams Really Tell Us?
 
+<div class="leading-relaxed clear-both">
+  <span class="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[560px] sm:w-3/4 md:w-2/3 lg:w-1/2">
+    <div class="aspect-w-16 aspect-h-9">
+      <iframe class="w-full h-full" src="https://www.youtube.com/embed/2W85Dwxx218" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block;"></iframe>
+    </div>
+  </span>
 In the end, it seems that dreams aren't fully true—or completely false. They're shaped by both the brain and the mind—and what they reveal depends more on us than on the dream itself. Dreams are strange, emotional, and sometimes meaningful—but not always. Some come from the subconscious, some from brain activity, and others are simply stories we tell ourselves in the dark. What we do know is that dreams are shaped by both biology and psychology—and they reveal how deeply we're wired to search for meaning, even when things don't make sense.
+</div>
 
 Maybe that's why dreams matter—not because they always hold answers, but because they invite us to keep asking questions we might not ask when we're awake. So the next time you wake up from a dream, wondering what it meant—maybe the question isn't what it meant at all. Maybe the real question is: what did it awaken in you?
 
 ## 🌙 Key Takeaways from the Dreamworld
 
-Unraveling the mystery of dreams involves peering through different lenses. Here's a quick recap of the main perspectives and what they suggest about the enigmatic world we visit each night:
-
-*   **🧠 Freudian Lens:** Freud believed dreams were deeply personal dispatches from our unconscious, brimming with our hidden fears, unfulfilled wishes, and unresolved emotional baggage.
-*   **🔬 Neuroscience Goggles:** Modern neuroscience often views dreams as the brain's attempt to weave narratives from random neural firings during sleep—more like processing static than deciphering symbolic messages.
-*   **🌉 Windt's Middle Path:** Jennifer Windt offers a compelling middle ground, suggesting dreams are akin to "fictional memories," where our imagination creatively blends fragments of real-life experiences.
-*   **🔍 The Power of Your Perspective:** The ultimate meaning might not be inherent *in* the dream itself, but rather in *your response* to it. Even if they aren't direct "messages," dreams can act as mirrors, reflecting your underlying feelings or unmet needs.
-*   **✨ The Core Insight:** While dreams might not always present objective truth, they possess a unique power to reveal something that genuinely *matters* to you.
-
-So, while the debate continues, the journey into our dreamworld remains a personal and often insightful exploration of the mind's vast landscape.
+<div class="my-6 rounded-lg border border-blue-300 dark:border-blue-700 bg-blue-100 dark:bg-blue-900/60 p-4 md:p-6 not-prose text-sm">
+  <p class="mb-4 text-gray-700 dark:text-gray-300">Breaking down the main viewpoints:</p>
+  <ol class="list-decimal list-outside space-y-3 pl-5 text-gray-700 dark:text-gray-300">
+    <li><strong class="font-semibold text-gray-900 dark:text-gray-100">Freud's View:</strong> Dreams are personal messages from the unconscious, full of hidden fears, wishes, and emotions.</li>
+    <li><strong class="font-semibold text-gray-900 dark:text-gray-100">Neuroscience View:</strong> Dreams are the brain making sense of random signals during sleep – more static than symbolism.</li>
+    <li><strong class="font-semibold text-gray-900 dark:text-gray-100">Windt's Middle Ground:</strong> Dreams act like fictional memories, blending imagination and real experience.</li>
+    <li><strong class="font-semibold text-gray-900 dark:text-gray-100">Your Response Matters:</strong> The meaning isn't just in the dream itself, but in how you react to it. Dreams can highlight your feelings or needs.</li>
+    <li><strong class="font-semibold text-gray-900 dark:text-gray-100">The Bottom Line:</strong> Dreams might not show objective truth, but they can reveal something personally significant.</li>
+  </ol>
+</div>
 
 What do you think your dreams are telling you? Share your thoughts below!`,
     date: "2024-03-20",
