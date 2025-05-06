@@ -29,15 +29,14 @@ To make sense of all this, we'll look at three perspectives: Freud's theory of w
 
 ## 🧠 Freud's Theory: Dreams as Wish Fulfillment
 
-In the early 1900s, Sigmund Freud introduced a new way of thinking about dreams. He wasn't a scientist in the modern sense, but a doctor and the founder of psychoanalysis—a method based more on interpretation than experiment.
-
-Freud believed that every dream had two layers. The remembered part was called the manifest content—the surface-level story we recall in the morning. Beneath that was the latent content—the deeper, hidden meaning connected to our unconscious thoughts. According to him, dream analysis helps us move from the surface to what the dream is really expressing. Even today, some therapists still use dream interpretation to help people explore feelings they haven't fully processed (Hill, Knox, and Crook-Lyon).
-
 <div class="leading-relaxed clear-both">
+  <span class="float-left inline-block mr-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
+    <img src="/Freud.jpeg" alt="Portrait of Sigmund Freud" width="320" height="240" style="object-fit: contain; display: block;" loading="lazy" />
+  </span>
+This belief shaped Freud's entire theory of dreams. In *The Interpretation of Dreams*, he argued that dreams are a form of wish fulfillment. Even when they seem random or strange, he believed they were expressing unconscious desires (Freud 10). A child who is denied something during the day might dream about getting it at night. According to Freud, that's not a coincidence—it's the mind trying to satisfy the wish in another way.
   <span class="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-full max-w-[320px] sm:w-1/2">
     <img src="/manifest-content.jpeg" alt="The layers of dream interpretation according to Freud" width="320" height="240" style="object-fit: contain; display: block;" loading="lazy" />
   </span>
-This belief shaped Freud's entire theory of dreams. In *The Interpretation of Dreams*, he argued that dreams are a form of wish fulfillment. Even when they seem random or strange, he believed they were expressing unconscious desires (Freud 10). A child who is denied something during the day might dream about getting it at night. According to Freud, that's not a coincidence—it's the mind trying to satisfy the wish in another way.
 </div>
 
 To uncover these hidden meanings, he developed a method called psychoanalysis. It involved breaking the dream into small parts and asking the dreamer to say whatever came to mind; no matter how strange or unrelated it seemed. Freud often found surprising emotional links through this process. He even applied it to his own dreams. In one of them, he connected a dinner scene, a compliment about his eyes, and the serving of spinach to deeper feelings about guilt, love, debt, and past emotions (Freud 7). What looked like nonsense turned out to be a reflection of unresolved internal conflicts—and this is exactly what Freud believed dreams were: layered, emotional puzzles waiting to be understood.
