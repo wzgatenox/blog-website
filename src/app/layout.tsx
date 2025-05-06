@@ -37,9 +37,9 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className="py-6 md:px-8 md:py-0 border-t animate-gradient bg-[linear-gradient(90deg,#7C3AED_0%,#EC4899_25%,#3B82F6_50%,#14B8A6_75%,#7C3AED_100%)]">
+            <footer className="py-8 px-4 md:px-8 md:py-0 border-t animate-gradient bg-[linear-gradient(90deg,#7C3AED_0%,#EC4899_25%,#3B82F6_50%,#14B8A6_75%,#7C3AED_100%)]">
               <div className="container flex flex-col items-center justify-center gap-4 md:h-16 md:flex-row md:justify-between">
-                <p className="text-center text-sm leading-loose text-white md:text-left">
+                <p className="text-center text-base leading-loose text-white md:text-left">
                   © {new Date().getFullYear()} Maia Zatorska. All rights reserved.
                 </p>
                 <a 
@@ -49,7 +49,7 @@ export default function RootLayout({
                   className="text-white hover:text-gray-200 transition-colors"
                   aria-label="Maia Zatorska LinkedIn Profile"
                 >
-                  <Linkedin className="h-5 w-5" />
+                  <Linkedin className="h-7 w-7" />
                 </a>
               </div>
             </footer>

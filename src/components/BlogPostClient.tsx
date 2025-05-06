@@ -117,12 +117,12 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           <span>•</span>
           <span>{post.author}</span>
         </div>
-        <div className="relative w-full h-64 md:h-80 my-8 rounded-lg overflow-hidden shadow-lg not-prose">
+        <div className="relative w-full max-w-3xl mx-auto my-8 rounded-2xl overflow-hidden shadow-lg not-prose h-[60vh] min-h-[320px] top-[10vh]">
           <Image 
             src="/purple-brain.jpeg" 
             alt={`${post.title} image`} 
-            fill 
-            style={{ objectFit: "cover" }}
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
             priority
           />
         </div>
