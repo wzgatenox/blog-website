@@ -340,7 +340,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           <div className="flex flex-col items-center mb-4">
             <span className="text-4xl mb-2">💬</span>
             <h2 className="text-4xl font-extrabold mb-2 text-purple-900 dark:text-purple-200 text-center drop-shadow">Share Your Thoughts</h2>
-            <p className="text-lg text-muted-foreground text-center mb-4">We'd love to hear your perspective on dreams and meaning!</p>
+            <p className="text-lg text-gray-700 font-semibold text-center mb-4">I'd love to hear your perspective on dreams and meaning!</p>
             <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full mb-4"></div>
           </div>
           <CommentBoxThreaded />
