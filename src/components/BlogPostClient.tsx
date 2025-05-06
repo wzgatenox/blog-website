@@ -150,12 +150,44 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
             let afterWindtImage = false;
             let windtImageInserted = false;
             let windtSectionStarted = false;
+            let afterDreamsVideo = false;
+            let dreamsVideoInserted = false;
             const renderedBlocks = [];
             for (let index = 0; index < contentBlocks.length; index++) {
               const block = contentBlocks[index];
               // Insert clear-both before '💬 Interpreting Dreams: Meaning or Making It Up?' heading
               if (block.type === 'heading' && block.content.trim().toLowerCase().startsWith('💬 interpreting dreams:')) {
                 renderedBlocks.push(<div key={index + '-clear-interpreting'} className="clear-both" />);
+              }
+              // Detect '🔮 So, What Dreams Really Tell Us?' section
+              if (block.type === 'heading' && block.content.trim().toLowerCase().startsWith('🔮 so, what dreams really tell us')) {
+                afterDreamsVideo = true;
+                dreamsVideoInserted = false;
+                renderedBlocks.push(<AnimatedHeading key={index} id={block.id} text={block.content} />);
+                continue;
+              }
+              // Insert YouTube video as float-right at start of first paragraph after heading ONLY
+              if (afterDreamsVideo && !dreamsVideoInserted && block.type === 'paragraph') {
+                renderedBlocks.push(
+                  <p key={index} className="leading-relaxed">
+                    <span className="float-right inline-block ml-6 mb-4 rounded-lg overflow-hidden shadow-lg not-prose w-[400px]">
+                      <iframe
+                        width="400"
+                        height="225"
+                        src="https://www.youtube.com/embed/2W85Dwxx218"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        style={{ display: "block" }}
+                      ></iframe>
+                    </span>
+                    {block.content}
+                  </p>
+                );
+                dreamsVideoInserted = true;
+                afterDreamsVideo = false;
+                continue;
               }
               // Freud section logic
               if (block.type === 'heading' && block.content.toLowerCase().includes('freud')) {
