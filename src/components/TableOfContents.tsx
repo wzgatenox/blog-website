@@ -58,7 +58,7 @@ export function TableOfContents({ entries, onLinkClick, hasWorksCited }: TableOf
             <a 
               href={`#${entry.id}`} 
               onClick={onLinkClick} // Call the callback on click
-              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground"
+              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground break-words" // Added break-words
             >
               {entry.text}
             </a>
@@ -73,7 +73,7 @@ export function TableOfContents({ entries, onLinkClick, hasWorksCited }: TableOf
             <a 
               href="#works-cited" 
               onClick={onLinkClick}
-              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground"
+              className="block px-2 py-1.5 text-muted-foreground hover:text-foreground break-words" // Added break-words here too for consistency
             >
               Works Cited
             </a>
