@@ -136,7 +136,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
         )}
 
         {/* Enhanced Comment Section - Added w-full and responsive padding */}
-        <div className="mt-12 border-t border-white/20 pt-8 w-full max-w-2xl mx-auto bg-gradient-to-br from-purple-100 via-blue-50 to-purple-200 dark:from-purple-900/40 dark:to-blue-900/60 dark:bg-[#232347]/80 border-2 border-purple-300 dark:border-purple-700 rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 transition-all duration-300 hover:shadow-purple-300/40 text-gray-900 dark:text-gray-100">
+        <div className="mt-12 w-full max-w-2xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md ring-1 ring-purple-200 dark:ring-purple-700 rounded-3xl shadow-lg p-6 sm:p-8 md:p-10 transition-all duration-300 hover:shadow-2xl text-gray-900 dark:text-gray-100">
           <div className="flex flex-col items-center mb-4">
             <span className="text-4xl mb-2">💬</span>
             <h2 className="text-4xl font-extrabold mb-2 text-purple-900 dark:text-purple-200 text-center drop-shadow">Share Your Thoughts</h2>
