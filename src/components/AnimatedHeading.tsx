@@ -113,7 +113,7 @@ export function AnimatedHeading({
      return (
         <h2 
           id={id}
-          className="text-3xl font-semibold mt-10 mb-4 leading-tight"
+          className="text-3xl font-semibold mt-16 mb-6 leading-tight"
         >
             {text}
         </h2>
@@ -124,7 +124,7 @@ export function AnimatedHeading({
   return (
     <h2 
       id={id}
-      className="text-3xl font-semibold mt-10 mb-4 leading-tight scroll-mt-20"
+      className="text-3xl font-semibold mt-12 mb-4 leading-tight scroll-mt-20"
     >
       {wordStates.map((word) => (
         <React.Fragment key={word.id}>

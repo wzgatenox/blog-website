@@ -76,7 +76,7 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
       </aside>
 
       {/* Article Content - Apply prose styling here, render entire content with ReactMarkdown */}
-      <article className="prose prose-lg prose-gray dark:prose-invert w-full lg:max-w-4xl flex-grow break-words">
+      <article className="prose prose-lg prose-gray dark:prose-invert w-full lg:max-w-4xl flex-grow break-words prose-p:mb-12">
         {/* Header Section */}
         <h1 className="text-6xl font-bold tracking-tight mb-6 leading-tight gradient-text">
           {post.title}
@@ -108,10 +108,10 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
             h2: ({node, ...props}) => {
               let headingText = '';
               if (node && node.children) {
-                 const textNode = node.children.find(child => child.type === 'text');
-                 if (textNode && 'value' in textNode) {
-                    headingText = textNode.value;
-                 }
+                const textNode = node.children.find(child => child.type === 'text');
+                if (textNode && 'value' in textNode) {
+                  headingText = textNode.value;
+                }
               }
               const id = slugify(headingText);
               return <AnimatedHeading id={id} text={headingText} />;

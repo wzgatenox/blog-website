@@ -43,7 +43,7 @@ To uncover these hidden meanings, he developed a method called psychoanalysis. I
 
 Freud's theory left a mark on how we think about the mind. Even today, the idea that dreams can reveal hidden truths still holds weight in therapy and culture. But that idea didn't go unchallenged. As neuroscience advanced, so did skepticism. Some researchers looked at the dreaming brain and saw something entirely different—not hidden meaning, but spontaneous activity.
 
-<div class="clear-both"></div> {/* Clear float before next section */}
+<div class="clear-both"></div> 
 
 ## 💡 Neuroscience's View: Dreams as Random Brain Activity
 
@@ -57,7 +57,7 @@ It's a little like when we see faces in clouds or think we hear our name in a cr
 
 This theory directly challenges Freud. It says there's no hidden wish, no deep meaning. Just a very active brain doing what it always does: building stories. That kind of scientific skepticism may feel less romantic, but it forced us to reconsider a prevalent assumption: that every strange, vivid image in our dreams must point to something deeper. Or perhaps dreams are just what happens when the brain improvises with scraps of memory, emotion, and noise. But maybe it's not a choice between meaning and randomness. Maybe dreams are shaped by both: the messy signals in our brain and the emotional traces we carry with us.
 
-<div class="clear-both"></div> {/* Clear float before next section */}
+<div class="clear-both"></div> 
 
 ## 💭 A Middle Ground: Dreams as Fictional Remembering
 
@@ -78,7 +78,7 @@ Personally, I find this idea the most helpful. I've had dreams that felt complet
 
 That's the real power of dreams. Not that they hold secret truths, but that they create a space where we can uncover feelings we haven't faced directly or have faced already. Even if the dream started from random brain activity, the way we react to it can still tell us something valuable about ourselves.
 
-<div class="clear-both"></div> {/* Clear float before next section */}
+<div class="clear-both"></div> 
 
 ## 🔮 So, What Dreams Really Tell Us?
 
