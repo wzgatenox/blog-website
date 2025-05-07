@@ -37,6 +37,7 @@ async function writeCommentsToBlob(comments: any) {
     await put(COMMENTS_BLOB_PATH, JSON.stringify(comments, null, 2), {
       access: 'public', // Or 'private' if you handle access control differently
       contentType: 'application/json',
+      allowOverwrite: true, // Allow overwriting the existing blob
       // Add a cache control header if desired, e.g., to ensure fresh data
       // cacheControl: 'max-age=0, s-maxage=0, must-revalidate',
     });
