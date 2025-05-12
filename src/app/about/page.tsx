@@ -10,7 +10,7 @@ export default function AboutPage() {
         </p>
         <div className="relative w-64 h-64 mx-auto mb-12 rounded-full overflow-hidden shadow-lg">
           <Image 
-            src="/maia1.jpg"
+            src="/maia1.jpeg"
             alt="Maia profile picture" 
             fill 
             style={{ objectFit: "cover" }}

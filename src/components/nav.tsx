@@ -18,19 +18,19 @@ export function Nav() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <span className="font-bold inline-block gradient-text text-lg md:text-xl">
-            Dreams Blog
-          </span>
-        </Link>
+              Dreams Blog
+            </span>
+          </Link>
 
         {/* Wrapper for all right-side elements */}
         <div className="flex items-center space-x-4">
           {/* Blog link - always visible */}
-          <Link
-            href="/blog/what-if-your-dreams-are-lying"
+            <Link
+              href="/blog/what-if-your-dreams-are-lying"
             className="transition-colors hover:text-foreground/80 text-foreground/60 text-sm font-medium"
-          >
-            Blog
-          </Link>
+            >
+              Blog
+            </Link>
 
           <ThemeToggle />
 

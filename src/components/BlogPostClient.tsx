@@ -48,8 +48,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
   while ((match = headingRegex.exec(post.content)) !== null) {
       const headingText = match[1].trim();
       if (headingText) { 
-        const headingId = slugify(headingText);
-        tocEntries.push({ id: headingId, text: headingText });
+      const headingId = slugify(headingText);
+      tocEntries.push({ id: headingId, text: headingText });
       }
   }
   // --- End ToC Generation ---
@@ -57,15 +57,15 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
   return (
     <div className="relative container mx-auto flex flex-row gap-12 py-8 px-4">
       {/* Mobile ToC Sheet (triggered by event from Nav.tsx) */}
-      <Sheet open={isTocOpen} onOpenChange={setIsTocOpen}>
+        <Sheet open={isTocOpen} onOpenChange={setIsTocOpen}>
         <SheetContent side="right" className="w-3/4 sm:w-1/2 lg:w-1/3 overflow-y-auto pt-10">
           <TableOfContents 
             entries={tocEntries} 
             onLinkClick={() => setIsTocOpen(false)}
             hasWorksCited={post.worksCited && post.worksCited.length > 0} 
           />
-        </SheetContent>
-      </Sheet>
+          </SheetContent>
+        </Sheet>
 
       {/* Desktop Table of Contents */}
       <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-4">

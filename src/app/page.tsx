@@ -63,7 +63,7 @@ export default function HomePage() {
           variants={fadeIn}
         >
           <Image 
-            src="/maia.jpg" 
+            src="/maia1.jpeg" 
             alt="Maia profile picture" 
             fill 
             style={{ objectFit: "cover" }}
