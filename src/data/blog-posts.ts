@@ -158,7 +158,7 @@ They all reflect one thing: Our deep need to find <span class="font-bold text-in
   </ol>
 </div>
 
-What do you think your dreams are telling you? Share your thoughts below!`,
+<span class="text-yellow-500">What do you think your dreams are telling you? Share your thoughts below!</span>`,
     date: "2025-04-03", // Updated to match PDF
     author: "Maia Zatorska",
     worksCited: [ // Updated to match PDF
