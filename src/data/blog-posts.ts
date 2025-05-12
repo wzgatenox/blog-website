@@ -142,8 +142,11 @@ They all reflect one thing: Our deep need to find <span class="font-bold text-in
 <p class="my-2"><strong>Not because they always hold <span class="font-bold text-indigo-600 dark:text-indigo-400">answers</span></p>
 <p class="my-2"><strong>But because they invite us to ask <span class="font-bold text-indigo-600 dark:text-indigo-400">questions</span> we might not ask when we're awake.</strong></p>
 <p>So the next time you wake up from a dream, wondering what it meant—maybe the question isn't what it meant at all.</p>
-<p class="my-2">Maybe the real question is:</p>
-<p class="my-2"><span class="font-bold text-indigo-600 dark:text-indigo-400">What did it awaken in you?</span></p>
+
+<div class="my-24 text-center">
+  <p class="text-2xl mb-6">Maybe the real question is:</p>
+  <p class="text-5xl font-bold text-amber-600 dark:text-amber-400">What did it awaken in you?</p>
+</div>
 
 ## 🌙 Key Takeaways from the Dreamworld
 
